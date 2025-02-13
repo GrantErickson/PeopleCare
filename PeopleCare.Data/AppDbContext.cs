@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace PeopleCare.Data;
 
@@ -72,9 +73,49 @@ public class AppDbContext
 
     public DbSet<UserPhoto> UserPhotos => Set<UserPhoto>();
 
+    public DbSet<Person> People => Set<Person>();
+    public DbSet<PersonType> PersonTypes => Set<PersonType>();
+    public DbSet<PersonPersonType> PersonPersonTypes => Set<PersonPersonType>();
+    public DbSet<Region> Regions => Set<Region>();
+    public DbSet<PersonRegionAccess> PersonRegionAccesses => Set<PersonRegionAccess>();
+    public DbSet<Donation> Donations => Set<Donation>();
+    public DbSet<Disbursement> Disbursements => Set<Disbursement>();
+    public DbSet<Encounter> Encounters => Set<Encounter>();
+    public DbSet<Relationship> Relationships => Set<Relationship>();
+    public DbSet<RelationshipType> RelationshipTypes => Set<RelationshipType>();
+    public DbSet<Ethnicity> Ethnicities => Set<Ethnicity>();
+    public DbSet<Gender> Genders => Set<Gender>();
+    public DbSet<Tag> Tags => Set<Tag>();
+
+
 
     [InternalUse]
     public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
+
+
+    protected void OnModelCreatingCustom(ModelBuilder builder)
+    {
+        // Many to Many between Person and Region for Users who have access to regions.
+        builder.Entity<Person>()
+            .HasMany(p => p.RegionsAvailable)
+            .WithMany(p => p.PeopleWithAccess)
+            .UsingEntity<PersonRegionAccess>(
+                f => f.HasOne(g => g.Region).WithMany().HasForeignKey(g => g.RegionId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+            );
+
+        // Many to Many between Person and PersonType.
+        builder.Entity<Person>()
+            .HasMany(p => p.PersonTypes)
+            .WithMany(p => p.People)
+            .UsingEntity<PersonPersonType>(
+                f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(g => g.PersonTypeId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+            );
+
+        builder.Entity<Person>().HasMany(p => p.Tags);
+
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -97,8 +138,7 @@ public class AppDbContext
                     .ExcludeProperty<ITenanted>(x => new { x.TenantId })
                 ;
             })
-        )
-        ;
+        );
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -223,6 +263,8 @@ public class AppDbContext
                 }
             }
         }
+
+        OnModelCreatingCustom(builder);
     }
 
     class TenantIdValueGenerator : ValueGenerator<string>
