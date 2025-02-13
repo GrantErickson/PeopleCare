@@ -1,0 +1,16 @@
+{
+  "webProject": {
+    "projectFile": "./PeopleCare.Web/PeopleCare.Web.csproj"
+  },
+  "dataProject": {
+    "projectFile": "./PeopleCare.Data/PeopleCare.Data.csproj"
+  },
+
+  "rootGenerator": "Vue",
+
+  "generatorConfig": {
+    "Scripts": {
+      "targetDirectory": "../src"
+    }
+  }
+}

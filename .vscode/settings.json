@@ -1,0 +1,9 @@
+{
+  "typescript.tsdk": "PeopleCare.Web\\node_modules\\typescript\\lib",
+  "dotnet.defaultSolution": "PeopleCare.sln",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "cSpell.words": ["Vite", "unplugin", "iconsets", "viewmodels", "composables"]
+}
