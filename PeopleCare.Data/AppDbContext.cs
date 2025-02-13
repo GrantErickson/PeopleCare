@@ -116,8 +116,8 @@ public class AppDbContext
             .HasMany(p => p.RegionsAvailable)
             .WithMany(p => p.PeopleWithAccess)
             .UsingEntity<PersonRegionAccess>(
-                f => f.HasOne(g => g.Region).WithMany().HasForeignKey(g => g.RegionId).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+                f => f.HasOne(g => g.Region).WithMany().HasForeignKey(g => g.RegionId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
             );
 
         // Many to Many between Person and PersonType.
@@ -125,8 +125,8 @@ public class AppDbContext
             .HasMany(p => p.PersonTypes)
             .WithMany(p => p.People)
             .UsingEntity<PersonPersonType>(
-                f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(g => g.PersonTypeId).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+                f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(g => g.PersonTypeId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
             );
 
         // Many to Many between Person and Tag.
@@ -134,8 +134,8 @@ public class AppDbContext
             .HasMany(p => p.Tags)
             .WithMany(p => p.People)
             .UsingEntity<PersonTag>(
-                f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(g => g.TagId).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+                f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(g => g.TagId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
             ); builder.Entity<Person>().HasMany(p => p.Tags);
 
         // Many to Many between Program and FundingSource.
@@ -143,8 +143,8 @@ public class AppDbContext
             .HasMany(p => p.FundingSources)
             .WithMany(p => p.Programs)
             .UsingEntity<ProgramFundingSource>(
-                f => f.HasOne(g => g.FundingSource).WithMany().HasForeignKey(g => g.FundingSourceId).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).OnDelete(DeleteBehavior.NoAction)
+                f => f.HasOne(g => g.FundingSource).WithMany().HasForeignKey(g => g.FundingSourceId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
             );
 
         // Many to Many between Program and Activity.
@@ -152,8 +152,9 @@ public class AppDbContext
             .HasMany(p => p.Activities)
             .WithMany(p => p.Programs)
             .UsingEntity<ProgramActivity>(
-                f => f.HasOne(g => g.Activity).WithMany().HasForeignKey(g => g.ActivityId).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).OnDelete(DeleteBehavior.NoAction)
+                f => f.HasOne(g => g.Activity).WithMany().HasForeignKey(g => g.ActivityId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasKey(g => new { g.ProgramActivityId, g.TenantId })
             );
 
     }
