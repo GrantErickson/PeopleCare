@@ -136,7 +136,7 @@ public class AppDbContext
             .UsingEntity<PersonTag>(
                 f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(g => g.TagId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction),
                 f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
-            ); builder.Entity<Person>().HasMany(p => p.Tags);
+            ); 
 
         // Many to Many between Program and FundingSource.
         builder.Entity<Program>()
