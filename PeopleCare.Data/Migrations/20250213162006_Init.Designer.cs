@@ -12,7 +12,7 @@ using PeopleCare.Data;
 namespace PeopleCare.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250213161536_Init")]
+    [Migration("20250213162006_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -2543,7 +2543,7 @@ namespace PeopleCare.Data.Migrations
                     b.HasOne("PeopleCare.Data.Models.Region", "Region")
                         .WithMany()
                         .HasForeignKey("TenantId", "RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PeopleCare.Data.Models.Tag", null)

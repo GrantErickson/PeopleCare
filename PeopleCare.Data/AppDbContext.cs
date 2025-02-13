@@ -115,25 +115,28 @@ public class AppDbContext
         builder.Entity<Encounter>()
           .HasOne(e => e.Person)
           .WithMany(p => p.Encounters)
-          .HasForeignKey(e => new { e.TenantId, e.PersonId });
+          .HasForeignKey(e => new { e.TenantId, e.PersonId })
+          .OnDelete(DeleteBehavior.Restrict);
 
         builder.Entity<Encounter>()
             .HasOne(e => e.ContactedBy)
             .WithMany()
-            .HasForeignKey(e => new { e.TenantId, e.ContactedById });
+            .HasForeignKey(e => new { e.TenantId, e.ContactedById })
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Define the relationship between Person and Region
         builder.Entity<Person>()
             .HasOne(p => p.Region)
             .WithMany()
-            .HasForeignKey(p => new { p.TenantId, p.RegionId });
+            .HasForeignKey(p => new { p.TenantId, p.RegionId })
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Define the self-referencing relationship in Region (Parent-Child)
         builder.Entity<Region>()
             .HasOne(r => r.ParentRegion)
             .WithMany(r => r.Children)
             .HasForeignKey(r => new { r.TenantId, r.ParentRegionId })
-            .OnDelete(DeleteBehavior.Restrict); // Adjust if needed
+            .OnDelete(DeleteBehavior.Restrict); // Adjust theses if needed
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -2540,7 +2540,7 @@ namespace PeopleCare.Data.Migrations
                     b.HasOne("PeopleCare.Data.Models.Region", "Region")
                         .WithMany()
                         .HasForeignKey("TenantId", "RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PeopleCare.Data.Models.Tag", null)

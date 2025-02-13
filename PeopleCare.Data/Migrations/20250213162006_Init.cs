@@ -898,7 +898,7 @@ namespace PeopleCare.Data.Migrations
                         columns: x => new { x.TenantId, x.RegionId },
                         principalTable: "Regions",
                         principalColumns: new[] { "TenantId", "RegionId" },
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_People_Tags_TenantId_TagId",
                         columns: x => new { x.TenantId, x.TagId },
