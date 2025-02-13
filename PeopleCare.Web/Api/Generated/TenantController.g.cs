@@ -120,7 +120,7 @@ namespace PeopleCare.Web.Api
             return _result;
         }
 
-        public class CreateParameters
+        public class TenantCreateParameters
         {
             public string Name { get; set; }
             public string AdminEmail { get; set; }
@@ -134,7 +134,7 @@ namespace PeopleCare.Web.Api
         [Consumes("application/json")]
         public virtual async Task<ItemResult> Create(
             [FromServices] PeopleCare.Data.Auth.InvitationService invitationService,
-            [FromBody] CreateParameters _params
+            [FromBody] TenantCreateParameters _params
         )
         {
             if (Context.Options.ValidateAttributesForMethods)

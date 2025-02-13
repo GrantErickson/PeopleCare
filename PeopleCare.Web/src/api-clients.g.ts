@@ -3,6 +3,11 @@ import * as $models from './models.g'
 import { ModelApiClient, ServiceApiClient } from 'coalesce-vue/lib/api-client'
 import type { AxiosPromise, AxiosRequestConfig, ItemResult, ListResult } from 'coalesce-vue/lib/api-client'
 
+export class ActivityApiClient extends ModelApiClient<$models.Activity> {
+  constructor() { super($metadata.Activity) }
+}
+
+
 export class AuditLogApiClient extends ModelApiClient<$models.AuditLog> {
   constructor() { super($metadata.AuditLog) }
 }
@@ -13,8 +18,128 @@ export class AuditLogPropertyApiClient extends ModelApiClient<$models.AuditLogPr
 }
 
 
+export class DisbursementApiClient extends ModelApiClient<$models.Disbursement> {
+  constructor() { super($metadata.Disbursement) }
+}
+
+
+export class DonationApiClient extends ModelApiClient<$models.Donation> {
+  constructor() { super($metadata.Donation) }
+}
+
+
+export class EncounterApiClient extends ModelApiClient<$models.Encounter> {
+  constructor() { super($metadata.Encounter) }
+}
+
+
+export class EthnicityApiClient extends ModelApiClient<$models.Ethnicity> {
+  constructor() { super($metadata.Ethnicity) }
+}
+
+
+export class FormApiClient extends ModelApiClient<$models.Form> {
+  constructor() { super($metadata.Form) }
+}
+
+
+export class FormFieldApiClient extends ModelApiClient<$models.FormField> {
+  constructor() { super($metadata.FormField) }
+}
+
+
+export class FormTypeApiClient extends ModelApiClient<$models.FormType> {
+  constructor() { super($metadata.FormType) }
+}
+
+
+export class FormValueApiClient extends ModelApiClient<$models.FormValue> {
+  constructor() { super($metadata.FormValue) }
+}
+
+
+export class FundingSourceApiClient extends ModelApiClient<$models.FundingSource> {
+  constructor() { super($metadata.FundingSource) }
+}
+
+
+export class GenderApiClient extends ModelApiClient<$models.Gender> {
+  constructor() { super($metadata.Gender) }
+}
+
+
+export class PersonApiClient extends ModelApiClient<$models.Person> {
+  constructor() { super($metadata.Person) }
+}
+
+
+export class PersonPersonTypeApiClient extends ModelApiClient<$models.PersonPersonType> {
+  constructor() { super($metadata.PersonPersonType) }
+}
+
+
+export class PersonProgramFundingSourceApiClient extends ModelApiClient<$models.PersonProgramFundingSource> {
+  constructor() { super($metadata.PersonProgramFundingSource) }
+}
+
+
+export class PersonRegionAccessApiClient extends ModelApiClient<$models.PersonRegionAccess> {
+  constructor() { super($metadata.PersonRegionAccess) }
+}
+
+
+export class PersonTypeApiClient extends ModelApiClient<$models.PersonType> {
+  constructor() { super($metadata.PersonType) }
+}
+
+
+export class ProgramApiClient extends ModelApiClient<$models.Program> {
+  constructor() { super($metadata.Program) }
+}
+
+
+export class ProgramActivityApiClient extends ModelApiClient<$models.ProgramActivity> {
+  constructor() { super($metadata.ProgramActivity) }
+}
+
+
+export class ProgramFundingSourceApiClient extends ModelApiClient<$models.ProgramFundingSource> {
+  constructor() { super($metadata.ProgramFundingSource) }
+}
+
+
+export class RegionApiClient extends ModelApiClient<$models.Region> {
+  constructor() { super($metadata.Region) }
+}
+
+
+export class RelationshipApiClient extends ModelApiClient<$models.Relationship> {
+  constructor() { super($metadata.Relationship) }
+  public create(person: $models.Person | null, relatedPerson: $models.Person | null, relationshipTypeId: string | null, $config?: AxiosRequestConfig): AxiosPromise<ItemResult<$models.Relationship>> {
+    const $method = this.$metadata.methods.create
+    const $params =  {
+      person,
+      relatedPerson,
+      relationshipTypeId,
+    }
+    return this.$invoke($method, $params, $config)
+  }
+  
+}
+
+
+export class RelationshipTypeApiClient extends ModelApiClient<$models.RelationshipType> {
+  constructor() { super($metadata.RelationshipType) }
+}
+
+
 export class RoleApiClient extends ModelApiClient<$models.Role> {
   constructor() { super($metadata.Role) }
+}
+
+
+export class TagApiClient extends ModelApiClient<$models.Tag> {
+  constructor() { super($metadata.Tag) }
 }
 
 

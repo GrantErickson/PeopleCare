@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using PeopleCare.Data.Models.Forms;
 
 namespace PeopleCare.Data;
 
@@ -87,6 +88,18 @@ public class AppDbContext
     public DbSet<Gender> Genders => Set<Gender>();
     public DbSet<Tag> Tags => Set<Tag>();
 
+    public DbSet<Program> Programs => Set<Program>();
+    public DbSet<FundingSource> FundingSources => Set<FundingSource>();
+    public DbSet<ProgramFundingSource> ProgramFundingSources => Set<ProgramFundingSource>();
+    public DbSet<Activity> Activities => Set<Activity>();
+    public DbSet<ProgramActivity> ProgramActivities => Set<ProgramActivity>();
+    public DbSet<PersonProgramFundingSource> PersonProgramFundingSources => Set<PersonProgramFundingSource>();
+
+    public DbSet<Form> Forms => Set<Form>();
+    public DbSet<FormType> FormTypes => Set<FormType>();
+    public DbSet<FormField> FormFields => Set<FormField>();
+    public DbSet<FormValue> FormValues => Set<FormValue>();
+
 
 
     [InternalUse]
@@ -111,6 +124,15 @@ public class AppDbContext
             .UsingEntity<PersonPersonType>(
                 f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(g => g.PersonTypeId).OnDelete(DeleteBehavior.NoAction),
                 f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+            );
+
+        // Many to Many between Program and FundingSource.
+        builder.Entity<Program>()
+            .HasMany(p => p.FundingSources)
+            .WithMany(p => p.Programs)
+            .UsingEntity<ProgramFundingSource>(
+                f => f.HasOne(g => g.FundingSource).WithMany().HasForeignKey(g => g.FundingSourceId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).OnDelete(DeleteBehavior.NoAction)
             );
 
         builder.Entity<Person>().HasMany(p => p.Tags);
