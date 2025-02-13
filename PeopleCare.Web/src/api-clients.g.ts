@@ -23,6 +23,16 @@ export class DisbursementApiClient extends ModelApiClient<$models.Disbursement> 
 }
 
 
+export class DocumentApiClient extends ModelApiClient<$models.Document> {
+  constructor() { super($metadata.Document) }
+}
+
+
+export class DocumentTypeApiClient extends ModelApiClient<$models.DocumentType> {
+  constructor() { super($metadata.DocumentType) }
+}
+
+
 export class DonationApiClient extends ModelApiClient<$models.Donation> {
   constructor() { super($metadata.Donation) }
 }
@@ -43,8 +53,8 @@ export class FormApiClient extends ModelApiClient<$models.Form> {
 }
 
 
-export class FormFieldApiClient extends ModelApiClient<$models.FormField> {
-  constructor() { super($metadata.FormField) }
+export class FormFieldValueApiClient extends ModelApiClient<$models.FormFieldValue> {
+  constructor() { super($metadata.FormFieldValue) }
 }
 
 
@@ -53,8 +63,8 @@ export class FormTypeApiClient extends ModelApiClient<$models.FormType> {
 }
 
 
-export class FormValueApiClient extends ModelApiClient<$models.FormValue> {
-  constructor() { super($metadata.FormValue) }
+export class FormTypeFieldApiClient extends ModelApiClient<$models.FormTypeField> {
+  constructor() { super($metadata.FormTypeField) }
 }
 
 

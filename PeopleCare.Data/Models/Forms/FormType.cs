@@ -12,5 +12,5 @@ public class FormType: TenantedBase
     public string Name { get; set; } = null!;
     public ICollection<Form> Forms { get; set; } = null!;
 
-    public ICollection<FormField> Fields { get; set; }
+    public ICollection<FormTypeField> Fields { get; set; } = null!;
 }

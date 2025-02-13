@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PeopleCare.Data.Models.Forms;
-public class FormField : TenantedBase
+public class FormTypeField : TenantedBase
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public string FormFieldId { get; set; } = null!;
+    public string FormTypeFieldId { get; set; } = null!;
+
+    public string FormTypeId { get; set; } = null!;
+    public FormType? FormType { get; set; }
+
     public required string Name { get; set; }
     public string? Description { get; set; } = null!;
 

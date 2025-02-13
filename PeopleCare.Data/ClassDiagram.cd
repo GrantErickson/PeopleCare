@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PeopleCare.Data.Models.Person">
+    <Position X="9.25" Y="6.75" Width="2.25" />
+    <AssociationLine Name="PointPerson" Type="PeopleCare.Data.Models.Person" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="13.56" />
+        <Point X="10" Y="13.98" />
+        <Point X="11.188" Y="13.98" />
+        <Point X="11.188" Y="13.56" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAlAEEAgCACAACMAgBCCAgAAAIQEEIiAggAJAIAARg=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Ethnicity" />
+      <Property Name="Gender" />
+      <Property Name="PointPerson" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonRegionAccess">
+    <Position X="6.25" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAgAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PersonRegionAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonType">
+    <Position X="14.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIEAAAAAAAAAAAQAAQIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PersonType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonPersonType">
+    <Position X="12.25" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAAAAAAAAEIAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PersonPersonType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="PersonType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Encounter">
+    <Position X="8.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAkgAAAgAAAAAAEAAIIAAACCAAAEAABAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Encounter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EncounterType" />
+      <Property Name="Person" />
+      <Property Name="ContactedBy" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.EncounterType">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EncounterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Donation">
+    <Position X="4.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIECAEAgAAgAAAEAAAAAAAAAAAAAAABAAAggAAAAAA=</HashCode>
+      <FileName>Models\Donation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Disbursement">
+    <Position X="1.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAECAAAgAAgAAAEAgAAAAAAAAAAAAABAAQggAAAAAA=</HashCode>
+      <FileName>Models\Disbursement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Donation" />
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Relationship">
+    <Position X="12.5" Y="1.75" Width="2" />
+    <AssociationLine Name="Person" Type="PeopleCare.Data.Models.Person" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="2.094" />
+        <Point X="10.812" Y="2.094" />
+        <Point X="10.812" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="RelatedPerson" Type="PeopleCare.Data.Models.Person" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="4.356" />
+        <Point X="11.125" Y="4.356" />
+        <Point X="11.125" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAQAQBAAAAAAEEIAAAAAgAAARAEAAEAAAAEMIAAA=</HashCode>
+      <FileName>Models\Relationship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="RelatedPerson" />
+      <Property Name="RelationshipType" />
+      <Property Name="OppositeRelationship" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.RelationshipType">
+    <Position X="16.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAQAAAAAEAABAAAAAAAAAAI=</HashCode>
+      <FileName>Models\RelationshipType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OppositeRelationshipType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Ethnicity">
+    <Position X="13" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ethnicity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Gender">
+    <Position X="6.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Tag">
+    <Position X="2" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Tag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Program">
+    <Position X="11.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAgAAAAAAAAAAQAAAAAAAAIAAAAAIAAAAA=</HashCode>
+      <FileName>Models\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.FundingSource">
+    <Position X="8.75" Y="19.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Models\FundingSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.ProgramFundingSource">
+    <Position X="6.25" Y="17.25" Width="2" />
+    <AssociationLine Name="Program" Type="PeopleCare.Data.Models.Program" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="18.188" />
+        <Point X="9.729" Y="18.188" Type="JumpStart" />
+        <Point X="9.896" Y="18.188" Type="JumpEnd" />
+        <Point X="11.25" Y="18.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAEAAIAAAAAAAAAIAAAAACAAAAA=</HashCode>
+      <FileName>Models\ProgramFundingSource.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FundingSource" />
+      <Property Name="Program" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Activity">
+    <Position X="12.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAgAEAAAAAAAAQAAAAAAAABACAAAAAAAgA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.ProgramActivity">
+    <Position X="13.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAEAAAAAAAAAAAAAAAAAIAAAAAEAAABA=</HashCode>
+      <FileName>Models\ProgramActivity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Activity" />
+      <Property Name="Program" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonProgramFundingSource">
+    <Position X="9.25" Y="14.25" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="PeopleCare.Data.Models.PersonProgramFundingSource.ProgramState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\PersonProgramFundingSource.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <AssociationLine Name="Person" Type="PeopleCare.Data.Models.Person" FixedToPoint="true">
+      <Path>
+        <Point X="9.75" Y="14.25" />
+        <Point X="9.75" Y="13.56" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Program" Type="PeopleCare.Data.Models.Program" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.531" Y="16.704" />
+        <Point X="10.531" Y="17.688" />
+        <Point X="11.25" Y="17.688" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAQAAAAAABAAEAAECAAAAAAAAAAAIAAAABCAAAAA=</HashCode>
+      <FileName>Models\PersonProgramFundingSource.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="Program" />
+      <Property Name="FundingSource" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Participation">
+    <Position X="15" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIABAQAAAAAAAEAEAAEAAAAAACAAAAAICAEAAGEAAAA=</HashCode>
+      <FileName>Models\Participation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Activity" />
+      <Property Name="FundingSource" />
+      <Property Name="Program" />
+      <Property Name="Person" />
+      <Property Name="Form" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Forms.Form">
+    <Position X="17" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAAIAAAABEAAAAAAAAACAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Forms\Form.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FormType" />
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Forms.FormType">
+    <Position X="17" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Models\Forms\FormType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Forms.FormTypeField">
+    <Position X="19.5" Y="5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="PeopleCare.Data.Models.Forms.FormTypeField.FormFieldType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Forms\FormTypeField.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAIAgAAAAAAAAAIQAAAAAAAAAAQAABAAAAAA=</HashCode>
+      <FileName>Models\Forms\FormTypeField.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FormType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Forms.FormFieldValue">
+    <Position X="19.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAACABAAAAAAAgBAEAAAA=</HashCode>
+      <FileName>Models\Forms\FormFieldValue.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Form" />
+      <Property Name="FormTypeField" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Document">
+    <Position X="6.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAgABAAAAAgEAAAAAAAAAAAAAAAACAAAAAAAAgA=</HashCode>
+      <FileName>Models\Document.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DocumentType" />
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.DocumentType">
+    <Position X="3.25" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DocumentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonTag">
+    <Position X="4.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAgAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\PersonTag.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="Tag" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -37,6 +37,8 @@ export enum ProgramState {
 
 export interface Activity extends Model<typeof metadata.Activity> {
   activityId: string | null
+  programs: Program[] | null
+  participants: Participation[] | null
   name: string | null
   description: string | null
   date: Date | null
@@ -182,6 +184,74 @@ export class Disbursement {
 }
 
 
+export interface Document extends Model<typeof metadata.Document> {
+  documentId: string | null
+  personId: string | null
+  person: Person | null
+  documentName: string | null
+  url: string | null
+  documentTypeId: string | null
+  documentType: DocumentType | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
+}
+export class Document {
+  
+  /** Mutates the input object and its descendents into a valid Document implementation. */
+  static convert(data?: Partial<Document>): Document {
+    return convertToModel(data || {}, metadata.Document) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid Document implementation. */
+  static map(data?: Partial<Document>): Document {
+    return mapToModel(data || {}, metadata.Document) 
+  }
+  
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.Document; }
+  
+  /** Instantiate a new Document, optionally basing it on the given data. */
+  constructor(data?: Partial<Document> | {[k: string]: any}) {
+    Object.assign(this, Document.map(data || {}));
+  }
+}
+
+
+export interface DocumentType extends Model<typeof metadata.DocumentType> {
+  documentTypeId: string | null
+  documents: Document[] | null
+  name: string | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
+}
+export class DocumentType {
+  
+  /** Mutates the input object and its descendents into a valid DocumentType implementation. */
+  static convert(data?: Partial<DocumentType>): DocumentType {
+    return convertToModel(data || {}, metadata.DocumentType) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid DocumentType implementation. */
+  static map(data?: Partial<DocumentType>): DocumentType {
+    return mapToModel(data || {}, metadata.DocumentType) 
+  }
+  
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.DocumentType; }
+  
+  /** Instantiate a new DocumentType, optionally basing it on the given data. */
+  constructor(data?: Partial<DocumentType> | {[k: string]: any}) {
+    Object.assign(this, DocumentType.map(data || {}));
+  }
+}
+
+
 export interface Donation extends Model<typeof metadata.Donation> {
   donationId: string | null
   personId: string | null
@@ -297,10 +367,12 @@ export class Ethnicity {
 
 export interface Form extends Model<typeof metadata.Form> {
   formId: string | null
+  personId: string | null
+  person: Person | null
   formTypeId: string | null
   formType: FormType | null
   date: Date | null
-  formValues: FormValue[] | null
+  formValues: FormFieldValue[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -329,12 +401,13 @@ export class Form {
 }
 
 
-export interface FormField extends Model<typeof metadata.FormField> {
-  formFieldId: string | null
-  name: string | null
-  description: string | null
-  type: FormFieldType | null
-  validValues: string | null
+export interface FormFieldValue extends Model<typeof metadata.FormFieldValue> {
+  formFieldValueId: string | null
+  formId: string | null
+  form: Form | null
+  formTypeFieldId: string | null
+  formTypeField: FormTypeField | null
+  value: string | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -342,23 +415,23 @@ export interface FormField extends Model<typeof metadata.FormField> {
   createdById: string | null
   createdOn: Date | null
 }
-export class FormField {
+export class FormFieldValue {
   
-  /** Mutates the input object and its descendents into a valid FormField implementation. */
-  static convert(data?: Partial<FormField>): FormField {
-    return convertToModel(data || {}, metadata.FormField) 
+  /** Mutates the input object and its descendents into a valid FormFieldValue implementation. */
+  static convert(data?: Partial<FormFieldValue>): FormFieldValue {
+    return convertToModel(data || {}, metadata.FormFieldValue) 
   }
   
-  /** Maps the input object and its descendents to a new, valid FormField implementation. */
-  static map(data?: Partial<FormField>): FormField {
-    return mapToModel(data || {}, metadata.FormField) 
+  /** Maps the input object and its descendents to a new, valid FormFieldValue implementation. */
+  static map(data?: Partial<FormFieldValue>): FormFieldValue {
+    return mapToModel(data || {}, metadata.FormFieldValue) 
   }
   
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormField; }
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormFieldValue; }
   
-  /** Instantiate a new FormField, optionally basing it on the given data. */
-  constructor(data?: Partial<FormField> | {[k: string]: any}) {
-    Object.assign(this, FormField.map(data || {}));
+  /** Instantiate a new FormFieldValue, optionally basing it on the given data. */
+  constructor(data?: Partial<FormFieldValue> | {[k: string]: any}) {
+    Object.assign(this, FormFieldValue.map(data || {}));
   }
 }
 
@@ -367,7 +440,7 @@ export interface FormType extends Model<typeof metadata.FormType> {
   formTypeId: string | null
   name: string | null
   forms: Form[] | null
-  fields: FormField[] | null
+  fields: FormTypeField[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -396,31 +469,38 @@ export class FormType {
 }
 
 
-export interface FormValue extends Model<typeof metadata.FormValue> {
-  formValueId: string | null
-  formId: string | null
-  form: Form | null
-  formFieldId: string | null
-  formField: FormField | null
-  value: string | null
+export interface FormTypeField extends Model<typeof metadata.FormTypeField> {
+  formTypeFieldId: string | null
+  formTypeId: string | null
+  formType: FormType | null
+  name: string | null
+  description: string | null
+  type: FormFieldType | null
+  validValues: string | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
 }
-export class FormValue {
+export class FormTypeField {
   
-  /** Mutates the input object and its descendents into a valid FormValue implementation. */
-  static convert(data?: Partial<FormValue>): FormValue {
-    return convertToModel(data || {}, metadata.FormValue) 
+  /** Mutates the input object and its descendents into a valid FormTypeField implementation. */
+  static convert(data?: Partial<FormTypeField>): FormTypeField {
+    return convertToModel(data || {}, metadata.FormTypeField) 
   }
   
-  /** Maps the input object and its descendents to a new, valid FormValue implementation. */
-  static map(data?: Partial<FormValue>): FormValue {
-    return mapToModel(data || {}, metadata.FormValue) 
+  /** Maps the input object and its descendents to a new, valid FormTypeField implementation. */
+  static map(data?: Partial<FormTypeField>): FormTypeField {
+    return mapToModel(data || {}, metadata.FormTypeField) 
   }
   
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormValue; }
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormTypeField; }
   
-  /** Instantiate a new FormValue, optionally basing it on the given data. */
-  constructor(data?: Partial<FormValue> | {[k: string]: any}) {
-    Object.assign(this, FormValue.map(data || {}));
+  /** Instantiate a new FormTypeField, optionally basing it on the given data. */
+  constructor(data?: Partial<FormTypeField> | {[k: string]: any}) {
+    Object.assign(this, FormTypeField.map(data || {}));
   }
 }
 
@@ -492,6 +572,8 @@ export interface Person extends Model<typeof metadata.Person> {
   personId: string | null
   regionId: string | null
   region: Region | null
+  userId: string | null
+  user: User | null
   regionsAvailable: Region[] | null
   personTypes: PersonType[] | null
   encounters: Encounter[] | null
@@ -499,6 +581,8 @@ export interface Person extends Model<typeof metadata.Person> {
   disbursements: Disbursement[] | null
   relationships: Relationship[] | null
   tags: Tag[] | null
+  forms: Form[] | null
+  documents: Document[] | null
   firstName: string | null
   lastName: string | null
   email: string | null
@@ -934,6 +1018,7 @@ export class Role {
 export interface Tag extends Model<typeof metadata.Tag> {
   tagId: string | null
   name: string | null
+  people: Person[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -1108,6 +1193,48 @@ export class EncounterType {
 }
 
 
+export interface Participation extends Model<typeof metadata.Participation> {
+  participationId: string | null
+  personId: string | null
+  person: Person | null
+  activityId: string | null
+  activity: Activity | null
+  programId: string | null
+  program: Program | null
+  fundingSourceId: string | null
+  fundingSource: FundingSource | null
+  isRegistered: boolean | null
+  isAttended: boolean | null
+  formId: string | null
+  form: Form | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
+}
+export class Participation {
+  
+  /** Mutates the input object and its descendents into a valid Participation implementation. */
+  static convert(data?: Partial<Participation>): Participation {
+    return convertToModel(data || {}, metadata.Participation) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid Participation implementation. */
+  static map(data?: Partial<Participation>): Participation {
+    return mapToModel(data || {}, metadata.Participation) 
+  }
+  
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.Participation; }
+  
+  /** Instantiate a new Participation, optionally basing it on the given data. */
+  constructor(data?: Partial<Participation> | {[k: string]: any}) {
+    Object.assign(this, Participation.map(data || {}));
+  }
+}
+
+
 export interface UserInfo extends Model<typeof metadata.UserInfo> {
   id: string | null
   userName: string | null
@@ -1151,16 +1278,19 @@ declare module "coalesce-vue/lib/model" {
     AuditLog: AuditLog
     AuditLogProperty: AuditLogProperty
     Disbursement: Disbursement
+    Document: Document
+    DocumentType: DocumentType
     Donation: Donation
     Encounter: Encounter
     EncounterType: EncounterType
     Ethnicity: Ethnicity
     Form: Form
-    FormField: FormField
+    FormFieldValue: FormFieldValue
     FormType: FormType
-    FormValue: FormValue
+    FormTypeField: FormTypeField
     FundingSource: FundingSource
     Gender: Gender
+    Participation: Participation
     Person: Person
     PersonPersonType: PersonPersonType
     PersonProgramFundingSource: PersonProgramFundingSource

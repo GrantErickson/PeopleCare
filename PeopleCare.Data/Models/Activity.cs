@@ -10,6 +10,11 @@ public class Activity : TenantedBase
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string ActivityId { get; set; } = null!;
 
+
+    public ICollection<Program> Programs { get; set; } = null!;
+
+    public ICollection<Participation> Participants { get; set; } = null!;
+
     public required string Name { get; set; }
     public string Description { get; set; } = null!;
 

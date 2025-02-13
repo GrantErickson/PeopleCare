@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PeopleCare.Data.Models.Forms;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -16,6 +17,10 @@ public class Person: TenantedBase
     public required string RegionId { get; set; }
     public Region? Region { get; set; }
 
+    public string? UserId { get; set; }
+    public User? User { get; set; }
+
+
     public ICollection<Region> RegionsAvailable { get; set; } = null!;
 
     public ICollection<PersonType> PersonTypes { get; set; } = null!;
@@ -28,6 +33,8 @@ public class Person: TenantedBase
     [InverseProperty(nameof(Relationship.Person))]
     public ICollection<Relationship> Relationships { get; set; } = null!;
     public ICollection<Tag> Tags { get; set; } = null!;
+    public ICollection<Form> Forms { get; set; } = null!;
+    public ICollection<Document> Documents { get; set; } = null!;
 
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
@@ -57,4 +64,5 @@ public class Person: TenantedBase
     public Person? PointPerson { get; set; }
 
     public string? Notes { get; set; }
+
 }

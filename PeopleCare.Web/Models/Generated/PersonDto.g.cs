@@ -14,6 +14,7 @@ namespace PeopleCare.Web.Models
 
         private string _PersonId;
         private string _RegionId;
+        private string _UserId;
         private string _FirstName;
         private string _LastName;
         private string _Email;
@@ -40,6 +41,11 @@ namespace PeopleCare.Web.Models
         {
             get => _RegionId;
             set { _RegionId = value; Changed(nameof(RegionId)); }
+        }
+        public string UserId
+        {
+            get => _UserId;
+            set { _UserId = value; Changed(nameof(UserId)); }
         }
         public string FirstName
         {
@@ -133,6 +139,7 @@ namespace PeopleCare.Web.Models
 
             if (ShouldMapTo(nameof(PersonId))) entity.PersonId = PersonId;
             if (ShouldMapTo(nameof(RegionId))) entity.RegionId = RegionId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(FirstName))) entity.FirstName = FirstName;
             if (ShouldMapTo(nameof(LastName))) entity.LastName = LastName;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
@@ -165,6 +172,7 @@ namespace PeopleCare.Web.Models
 
             if (OnUpdate(entity, context)) return entity;
             if (ShouldMapTo(nameof(PersonId))) entity.PersonId = PersonId;
+            if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
             if (ShouldMapTo(nameof(FirstName))) entity.FirstName = FirstName;
             if (ShouldMapTo(nameof(LastName))) entity.LastName = LastName;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
@@ -192,6 +200,7 @@ namespace PeopleCare.Web.Models
 
         public string PersonId { get; set; }
         public string RegionId { get; set; }
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -213,6 +222,7 @@ namespace PeopleCare.Web.Models
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
         public PeopleCare.Web.Models.RegionResponse Region { get; set; }
+        public PeopleCare.Web.Models.UserResponse User { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RegionResponse> RegionsAvailable { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonTypeResponse> PersonTypes { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.EncounterResponse> Encounters { get; set; }
@@ -220,6 +230,8 @@ namespace PeopleCare.Web.Models
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DisbursementResponse> Disbursements { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RelationshipResponse> Relationships { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.TagResponse> Tags { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormResponse> Forms { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DocumentResponse> Documents { get; set; }
         public PeopleCare.Web.Models.EthnicityResponse Ethnicity { get; set; }
         public PeopleCare.Web.Models.GenderResponse Gender { get; set; }
         public PeopleCare.Web.Models.PersonResponse PointPerson { get; set; }
@@ -236,6 +248,7 @@ namespace PeopleCare.Web.Models
 
             this.PersonId = obj.PersonId;
             this.RegionId = obj.RegionId;
+            this.UserId = obj.UserId;
             this.FirstName = obj.FirstName;
             this.LastName = obj.LastName;
             this.Email = obj.Email;
@@ -258,6 +271,9 @@ namespace PeopleCare.Web.Models
             this.CreatedOn = obj.CreatedOn;
             if (tree == null || tree[nameof(this.Region)] != null)
                 this.Region = obj.Region.MapToDto<PeopleCare.Data.Models.Region, RegionResponse>(context, tree?[nameof(this.Region)]);
+
+            if (tree == null || tree[nameof(this.User)] != null)
+                this.User = obj.User.MapToDto<PeopleCare.Data.Models.User, UserResponse>(context, tree?[nameof(this.User)]);
 
             var propValRegionsAvailable = obj.RegionsAvailable;
             if (propValRegionsAvailable != null && (tree == null || tree[nameof(this.RegionsAvailable)] != null))
@@ -341,6 +357,30 @@ namespace PeopleCare.Web.Models
             else if (propValTags == null && tree?[nameof(this.Tags)] != null)
             {
                 this.Tags = new TagResponse[0];
+            }
+
+            var propValForms = obj.Forms;
+            if (propValForms != null && (tree == null || tree[nameof(this.Forms)] != null))
+            {
+                this.Forms = propValForms
+                    .OrderBy(f => f.FormId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Forms.Form, FormResponse>(context, tree?[nameof(this.Forms)])).ToList();
+            }
+            else if (propValForms == null && tree?[nameof(this.Forms)] != null)
+            {
+                this.Forms = new FormResponse[0];
+            }
+
+            var propValDocuments = obj.Documents;
+            if (propValDocuments != null && (tree == null || tree[nameof(this.Documents)] != null))
+            {
+                this.Documents = propValDocuments
+                    .OrderBy(f => f.DocumentId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Document, DocumentResponse>(context, tree?[nameof(this.Documents)])).ToList();
+            }
+            else if (propValDocuments == null && tree?[nameof(this.Documents)] != null)
+            {
+                this.Documents = new DocumentResponse[0];
             }
 
             if (tree == null || tree[nameof(this.Ethnicity)] != null)

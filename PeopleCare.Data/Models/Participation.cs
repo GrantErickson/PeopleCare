@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeopleCare.Data.Models.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,8 @@ public class Participation : TenantedBase
 
     public bool IsRegistered { get; set; }
     public bool IsAttended { get; set; }
+
+    public string? FormId { get; set; }
+    public Form? Form { get; set; }
 
 }

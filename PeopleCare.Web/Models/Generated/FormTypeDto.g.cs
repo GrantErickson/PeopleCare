@@ -61,7 +61,7 @@ namespace PeopleCare.Web.Models
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormResponse> Forms { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormFieldResponse> Fields { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormTypeFieldResponse> Fields { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -96,11 +96,11 @@ namespace PeopleCare.Web.Models
             {
                 this.Fields = propValFields
                     .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Forms.FormField, FormFieldResponse>(context, tree?[nameof(this.Fields)])).ToList();
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Forms.FormTypeField, FormTypeFieldResponse>(context, tree?[nameof(this.Fields)])).ToList();
             }
             else if (propValFields == null && tree?[nameof(this.Fields)] != null)
             {
-                this.Fields = new FormFieldResponse[0];
+                this.Fields = new FormTypeFieldResponse[0];
             }
 
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)

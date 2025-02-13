@@ -5,6 +5,9 @@ import { ViewModel, ListViewModel, ViewModelCollection, ServiceViewModel, type D
 
 export interface ActivityViewModel extends $models.Activity {
   activityId: string | null;
+  get programs(): ViewModelCollection<ProgramViewModel, $models.Program>;
+  set programs(value: (ProgramViewModel | $models.Program)[] | null);
+  participants: $models.Participation[] | null;
   name: string | null;
   description: string | null;
   date: Date | null;
@@ -138,6 +141,76 @@ export class DisbursementListViewModel extends ListViewModel<$models.Disbursemen
 }
 
 
+export interface DocumentViewModel extends $models.Document {
+  documentId: string | null;
+  personId: string | null;
+  get person(): PersonViewModel | null;
+  set person(value: PersonViewModel | $models.Person | null);
+  documentName: string | null;
+  url: string | null;
+  documentTypeId: string | null;
+  get documentType(): DocumentTypeViewModel | null;
+  set documentType(value: DocumentTypeViewModel | $models.DocumentType | null);
+  get modifiedBy(): UserViewModel | null;
+  set modifiedBy(value: UserViewModel | $models.User | null);
+  modifiedById: string | null;
+  modifiedOn: Date | null;
+  get createdBy(): UserViewModel | null;
+  set createdBy(value: UserViewModel | $models.User | null);
+  createdById: string | null;
+  createdOn: Date | null;
+}
+export class DocumentViewModel extends ViewModel<$models.Document, $apiClients.DocumentApiClient, string> implements $models.Document  {
+  
+  constructor(initialData?: DeepPartial<$models.Document> | null) {
+    super($metadata.Document, new $apiClients.DocumentApiClient(), initialData)
+  }
+}
+defineProps(DocumentViewModel, $metadata.Document)
+
+export class DocumentListViewModel extends ListViewModel<$models.Document, $apiClients.DocumentApiClient, DocumentViewModel> {
+  
+  constructor() {
+    super($metadata.Document, new $apiClients.DocumentApiClient())
+  }
+}
+
+
+export interface DocumentTypeViewModel extends $models.DocumentType {
+  documentTypeId: string | null;
+  get documents(): ViewModelCollection<DocumentViewModel, $models.Document>;
+  set documents(value: (DocumentViewModel | $models.Document)[] | null);
+  name: string | null;
+  get modifiedBy(): UserViewModel | null;
+  set modifiedBy(value: UserViewModel | $models.User | null);
+  modifiedById: string | null;
+  modifiedOn: Date | null;
+  get createdBy(): UserViewModel | null;
+  set createdBy(value: UserViewModel | $models.User | null);
+  createdById: string | null;
+  createdOn: Date | null;
+}
+export class DocumentTypeViewModel extends ViewModel<$models.DocumentType, $apiClients.DocumentTypeApiClient, string> implements $models.DocumentType  {
+  
+  
+  public addToDocuments(initialData?: DeepPartial<$models.Document> | null) {
+    return this.$addChild('documents', initialData) as DocumentViewModel
+  }
+  
+  constructor(initialData?: DeepPartial<$models.DocumentType> | null) {
+    super($metadata.DocumentType, new $apiClients.DocumentTypeApiClient(), initialData)
+  }
+}
+defineProps(DocumentTypeViewModel, $metadata.DocumentType)
+
+export class DocumentTypeListViewModel extends ListViewModel<$models.DocumentType, $apiClients.DocumentTypeApiClient, DocumentTypeViewModel> {
+  
+  constructor() {
+    super($metadata.DocumentType, new $apiClients.DocumentTypeApiClient())
+  }
+}
+
+
 export interface DonationViewModel extends $models.Donation {
   donationId: string | null;
   personId: string | null;
@@ -255,12 +328,15 @@ export class EthnicityListViewModel extends ListViewModel<$models.Ethnicity, $ap
 
 export interface FormViewModel extends $models.Form {
   formId: string | null;
+  personId: string | null;
+  get person(): PersonViewModel | null;
+  set person(value: PersonViewModel | $models.Person | null);
   formTypeId: string | null;
   get formType(): FormTypeViewModel | null;
   set formType(value: FormTypeViewModel | $models.FormType | null);
   date: Date | null;
-  get formValues(): ViewModelCollection<FormValueViewModel, $models.FormValue>;
-  set formValues(value: (FormValueViewModel | $models.FormValue)[] | null);
+  get formValues(): ViewModelCollection<FormFieldValueViewModel, $models.FormFieldValue>;
+  set formValues(value: (FormFieldValueViewModel | $models.FormFieldValue)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -273,8 +349,8 @@ export interface FormViewModel extends $models.Form {
 export class FormViewModel extends ViewModel<$models.Form, $apiClients.FormApiClient, string> implements $models.Form  {
   
   
-  public addToFormValues(initialData?: DeepPartial<$models.FormValue> | null) {
-    return this.$addChild('formValues', initialData) as FormValueViewModel
+  public addToFormValues(initialData?: DeepPartial<$models.FormFieldValue> | null) {
+    return this.$addChild('formValues', initialData) as FormFieldValueViewModel
   }
   
   constructor(initialData?: DeepPartial<$models.Form> | null) {
@@ -291,12 +367,15 @@ export class FormListViewModel extends ListViewModel<$models.Form, $apiClients.F
 }
 
 
-export interface FormFieldViewModel extends $models.FormField {
-  formFieldId: string | null;
-  name: string | null;
-  description: string | null;
-  type: $models.FormFieldType | null;
-  validValues: string | null;
+export interface FormFieldValueViewModel extends $models.FormFieldValue {
+  formFieldValueId: string | null;
+  formId: string | null;
+  get form(): FormViewModel | null;
+  set form(value: FormViewModel | $models.Form | null);
+  formTypeFieldId: string | null;
+  get formTypeField(): FormTypeFieldViewModel | null;
+  set formTypeField(value: FormTypeFieldViewModel | $models.FormTypeField | null);
+  value: string | null;
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -306,18 +385,18 @@ export interface FormFieldViewModel extends $models.FormField {
   createdById: string | null;
   createdOn: Date | null;
 }
-export class FormFieldViewModel extends ViewModel<$models.FormField, $apiClients.FormFieldApiClient, string> implements $models.FormField  {
+export class FormFieldValueViewModel extends ViewModel<$models.FormFieldValue, $apiClients.FormFieldValueApiClient, string> implements $models.FormFieldValue  {
   
-  constructor(initialData?: DeepPartial<$models.FormField> | null) {
-    super($metadata.FormField, new $apiClients.FormFieldApiClient(), initialData)
+  constructor(initialData?: DeepPartial<$models.FormFieldValue> | null) {
+    super($metadata.FormFieldValue, new $apiClients.FormFieldValueApiClient(), initialData)
   }
 }
-defineProps(FormFieldViewModel, $metadata.FormField)
+defineProps(FormFieldValueViewModel, $metadata.FormFieldValue)
 
-export class FormFieldListViewModel extends ListViewModel<$models.FormField, $apiClients.FormFieldApiClient, FormFieldViewModel> {
+export class FormFieldValueListViewModel extends ListViewModel<$models.FormFieldValue, $apiClients.FormFieldValueApiClient, FormFieldValueViewModel> {
   
   constructor() {
-    super($metadata.FormField, new $apiClients.FormFieldApiClient())
+    super($metadata.FormFieldValue, new $apiClients.FormFieldValueApiClient())
   }
 }
 
@@ -327,8 +406,8 @@ export interface FormTypeViewModel extends $models.FormType {
   name: string | null;
   get forms(): ViewModelCollection<FormViewModel, $models.Form>;
   set forms(value: (FormViewModel | $models.Form)[] | null);
-  get fields(): ViewModelCollection<FormFieldViewModel, $models.FormField>;
-  set fields(value: (FormFieldViewModel | $models.FormField)[] | null);
+  get fields(): ViewModelCollection<FormTypeFieldViewModel, $models.FormTypeField>;
+  set fields(value: (FormTypeFieldViewModel | $models.FormTypeField)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -345,6 +424,11 @@ export class FormTypeViewModel extends ViewModel<$models.FormType, $apiClients.F
     return this.$addChild('forms', initialData) as FormViewModel
   }
   
+  
+  public addToFields(initialData?: DeepPartial<$models.FormTypeField> | null) {
+    return this.$addChild('fields', initialData) as FormTypeFieldViewModel
+  }
+  
   constructor(initialData?: DeepPartial<$models.FormType> | null) {
     super($metadata.FormType, new $apiClients.FormTypeApiClient(), initialData)
   }
@@ -359,28 +443,36 @@ export class FormTypeListViewModel extends ListViewModel<$models.FormType, $apiC
 }
 
 
-export interface FormValueViewModel extends $models.FormValue {
-  formValueId: string | null;
-  formId: string | null;
-  get form(): FormViewModel | null;
-  set form(value: FormViewModel | $models.Form | null);
-  formFieldId: string | null;
-  get formField(): FormFieldViewModel | null;
-  set formField(value: FormFieldViewModel | $models.FormField | null);
-  value: string | null;
+export interface FormTypeFieldViewModel extends $models.FormTypeField {
+  formTypeFieldId: string | null;
+  formTypeId: string | null;
+  get formType(): FormTypeViewModel | null;
+  set formType(value: FormTypeViewModel | $models.FormType | null);
+  name: string | null;
+  description: string | null;
+  type: $models.FormFieldType | null;
+  validValues: string | null;
+  get modifiedBy(): UserViewModel | null;
+  set modifiedBy(value: UserViewModel | $models.User | null);
+  modifiedById: string | null;
+  modifiedOn: Date | null;
+  get createdBy(): UserViewModel | null;
+  set createdBy(value: UserViewModel | $models.User | null);
+  createdById: string | null;
+  createdOn: Date | null;
 }
-export class FormValueViewModel extends ViewModel<$models.FormValue, $apiClients.FormValueApiClient, string> implements $models.FormValue  {
+export class FormTypeFieldViewModel extends ViewModel<$models.FormTypeField, $apiClients.FormTypeFieldApiClient, string> implements $models.FormTypeField  {
   
-  constructor(initialData?: DeepPartial<$models.FormValue> | null) {
-    super($metadata.FormValue, new $apiClients.FormValueApiClient(), initialData)
+  constructor(initialData?: DeepPartial<$models.FormTypeField> | null) {
+    super($metadata.FormTypeField, new $apiClients.FormTypeFieldApiClient(), initialData)
   }
 }
-defineProps(FormValueViewModel, $metadata.FormValue)
+defineProps(FormTypeFieldViewModel, $metadata.FormTypeField)
 
-export class FormValueListViewModel extends ListViewModel<$models.FormValue, $apiClients.FormValueApiClient, FormValueViewModel> {
+export class FormTypeFieldListViewModel extends ListViewModel<$models.FormTypeField, $apiClients.FormTypeFieldApiClient, FormTypeFieldViewModel> {
   
   constructor() {
-    super($metadata.FormValue, new $apiClients.FormValueApiClient())
+    super($metadata.FormTypeField, new $apiClients.FormTypeFieldApiClient())
   }
 }
 
@@ -448,6 +540,9 @@ export interface PersonViewModel extends $models.Person {
   regionId: string | null;
   get region(): RegionViewModel | null;
   set region(value: RegionViewModel | $models.Region | null);
+  userId: string | null;
+  get user(): UserViewModel | null;
+  set user(value: UserViewModel | $models.User | null);
   get regionsAvailable(): ViewModelCollection<RegionViewModel, $models.Region>;
   set regionsAvailable(value: (RegionViewModel | $models.Region)[] | null);
   get personTypes(): ViewModelCollection<PersonTypeViewModel, $models.PersonType>;
@@ -462,6 +557,10 @@ export interface PersonViewModel extends $models.Person {
   set relationships(value: (RelationshipViewModel | $models.Relationship)[] | null);
   get tags(): ViewModelCollection<TagViewModel, $models.Tag>;
   set tags(value: (TagViewModel | $models.Tag)[] | null);
+  get forms(): ViewModelCollection<FormViewModel, $models.Form>;
+  set forms(value: (FormViewModel | $models.Form)[] | null);
+  get documents(): ViewModelCollection<DocumentViewModel, $models.Document>;
+  set documents(value: (DocumentViewModel | $models.Document)[] | null);
   firstName: string | null;
   lastName: string | null;
   email: string | null;
@@ -513,6 +612,16 @@ export class PersonViewModel extends ViewModel<$models.Person, $apiClients.Perso
   
   public addToRelationships(initialData?: DeepPartial<$models.Relationship> | null) {
     return this.$addChild('relationships', initialData) as RelationshipViewModel
+  }
+  
+  
+  public addToForms(initialData?: DeepPartial<$models.Form> | null) {
+    return this.$addChild('forms', initialData) as FormViewModel
+  }
+  
+  
+  public addToDocuments(initialData?: DeepPartial<$models.Document> | null) {
+    return this.$addChild('documents', initialData) as DocumentViewModel
   }
   
   constructor(initialData?: DeepPartial<$models.Person> | null) {
@@ -920,6 +1029,8 @@ export class RoleListViewModel extends ListViewModel<$models.Role, $apiClients.R
 export interface TagViewModel extends $models.Tag {
   tagId: string | null;
   name: string | null;
+  get people(): ViewModelCollection<PersonViewModel, $models.Person>;
+  set people(value: (PersonViewModel | $models.Person)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -1136,13 +1247,15 @@ const viewModelTypeLookup = ViewModel.typeLookup = {
   AuditLog: AuditLogViewModel,
   AuditLogProperty: AuditLogPropertyViewModel,
   Disbursement: DisbursementViewModel,
+  Document: DocumentViewModel,
+  DocumentType: DocumentTypeViewModel,
   Donation: DonationViewModel,
   Encounter: EncounterViewModel,
   Ethnicity: EthnicityViewModel,
   Form: FormViewModel,
-  FormField: FormFieldViewModel,
+  FormFieldValue: FormFieldValueViewModel,
   FormType: FormTypeViewModel,
-  FormValue: FormValueViewModel,
+  FormTypeField: FormTypeFieldViewModel,
   FundingSource: FundingSourceViewModel,
   Gender: GenderViewModel,
   Person: PersonViewModel,
@@ -1167,13 +1280,15 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   AuditLog: AuditLogListViewModel,
   AuditLogProperty: AuditLogPropertyListViewModel,
   Disbursement: DisbursementListViewModel,
+  Document: DocumentListViewModel,
+  DocumentType: DocumentTypeListViewModel,
   Donation: DonationListViewModel,
   Encounter: EncounterListViewModel,
   Ethnicity: EthnicityListViewModel,
   Form: FormListViewModel,
-  FormField: FormFieldListViewModel,
+  FormFieldValue: FormFieldValueListViewModel,
   FormType: FormTypeListViewModel,
-  FormValue: FormValueListViewModel,
+  FormTypeField: FormTypeFieldListViewModel,
   FundingSource: FundingSourceListViewModel,
   Gender: GenderListViewModel,
   Person: PersonListViewModel,

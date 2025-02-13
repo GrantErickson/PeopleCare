@@ -10,11 +10,15 @@ public class Form: TenantedBase
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string FormId { get; set; } = null!;
 
+    public string PersonId { get; set; } = null!;
+    public Person? Person { get; set; }
+
+
     public string FormTypeId { get; set; } = null!;
     public FormType? FormType { get; set; }
 
     public DateTime Date { get; set; }
 
-    public ICollection<FormValue> FormValues { get; set; } = null!;
+    public ICollection<FormFieldValue> FormValues { get; set; } = null!;
 
 }

@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PeopleCare.Data.Models;
-public class Tag: TenantedBase
+public class DocumentType: TenantedBase
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public string TagId { get; set; } = null!;
+    public string DocumentTypeId { get; set; } = null!;
+    public ICollection<Document> Documents { get; set; } = null!;
     public required string Name { get; set; }
-
-    public ICollection<Person> People { get; set; } = null!;
-
 }
+

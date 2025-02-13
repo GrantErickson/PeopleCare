@@ -8,17 +8,17 @@ using System.Security.Claims;
 
 namespace PeopleCare.Web.Models
 {
-    public partial class TagParameter : GeneratedParameterDto<PeopleCare.Data.Models.Tag>
+    public partial class DocumentTypeParameter : GeneratedParameterDto<PeopleCare.Data.Models.DocumentType>
     {
-        public TagParameter() { }
+        public DocumentTypeParameter() { }
 
-        private string _TagId;
+        private string _DocumentTypeId;
         private string _Name;
 
-        public string TagId
+        public string DocumentTypeId
         {
-            get => _TagId;
-            set { _TagId = value; Changed(nameof(TagId)); }
+            get => _DocumentTypeId;
+            set { _DocumentTypeId = value; Changed(nameof(DocumentTypeId)); }
         }
         public string Name
         {
@@ -29,73 +29,73 @@ namespace PeopleCare.Web.Models
         /// <summary>
         /// Map from the current DTO instance to the domain object.
         /// </summary>
-        public override void MapTo(PeopleCare.Data.Models.Tag entity, IMappingContext context)
+        public override void MapTo(PeopleCare.Data.Models.DocumentType entity, IMappingContext context)
         {
             var includes = context.Includes;
 
             if (OnUpdate(entity, context)) return;
 
-            if (ShouldMapTo(nameof(TagId))) entity.TagId = TagId;
+            if (ShouldMapTo(nameof(DocumentTypeId))) entity.DocumentTypeId = DocumentTypeId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
         }
 
         /// <summary>
         /// Map from the current DTO instance to a new instance of the domain object.
         /// </summary>
-        public override PeopleCare.Data.Models.Tag MapToNew(IMappingContext context)
+        public override PeopleCare.Data.Models.DocumentType MapToNew(IMappingContext context)
         {
             var includes = context.Includes;
 
-            var entity = new PeopleCare.Data.Models.Tag()
+            var entity = new PeopleCare.Data.Models.DocumentType()
             {
                 Name = Name,
             };
 
             if (OnUpdate(entity, context)) return entity;
-            if (ShouldMapTo(nameof(TagId))) entity.TagId = TagId;
+            if (ShouldMapTo(nameof(DocumentTypeId))) entity.DocumentTypeId = DocumentTypeId;
 
             return entity;
         }
     }
 
-    public partial class TagResponse : GeneratedResponseDto<PeopleCare.Data.Models.Tag>
+    public partial class DocumentTypeResponse : GeneratedResponseDto<PeopleCare.Data.Models.DocumentType>
     {
-        public TagResponse() { }
+        public DocumentTypeResponse() { }
 
-        public string TagId { get; set; }
+        public string DocumentTypeId { get; set; }
         public string Name { get; set; }
         public string ModifiedById { get; set; }
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonResponse> People { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DocumentResponse> Documents { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
         /// <summary>
         /// Map from the domain object to the properties of the current DTO instance.
         /// </summary>
-        public override void MapFrom(PeopleCare.Data.Models.Tag obj, IMappingContext context, IncludeTree tree = null)
+        public override void MapFrom(PeopleCare.Data.Models.DocumentType obj, IMappingContext context, IncludeTree tree = null)
         {
             if (obj == null) return;
             var includes = context.Includes;
 
-            this.TagId = obj.TagId;
+            this.DocumentTypeId = obj.DocumentTypeId;
             this.Name = obj.Name;
             this.ModifiedById = obj.ModifiedById;
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValPeople = obj.People;
-            if (propValPeople != null && (tree == null || tree[nameof(this.People)] != null))
+            var propValDocuments = obj.Documents;
+            if (propValDocuments != null && (tree == null || tree[nameof(this.Documents)] != null))
             {
-                this.People = propValPeople
-                    .OrderBy(f => f.PersonId)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Person, PersonResponse>(context, tree?[nameof(this.People)])).ToList();
+                this.Documents = propValDocuments
+                    .OrderBy(f => f.DocumentId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Document, DocumentResponse>(context, tree?[nameof(this.Documents)])).ToList();
             }
-            else if (propValPeople == null && tree?[nameof(this.People)] != null)
+            else if (propValDocuments == null && tree?[nameof(this.Documents)] != null)
             {
-                this.People = new PersonResponse[0];
+                this.Documents = new DocumentResponse[0];
             }
 
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)

@@ -97,8 +97,11 @@ public class AppDbContext
 
     public DbSet<Form> Forms => Set<Form>();
     public DbSet<FormType> FormTypes => Set<FormType>();
-    public DbSet<FormField> FormFields => Set<FormField>();
-    public DbSet<FormValue> FormValues => Set<FormValue>();
+    public DbSet<FormTypeField> FormFields => Set<FormTypeField>();
+    public DbSet<FormFieldValue> FormValues => Set<FormFieldValue>();
+
+    public DbSet<Document> Documents => Set<Document>();
+    public DbSet<DocumentType> DocumentTypes => Set<DocumentType>();
 
 
 
@@ -126,6 +129,15 @@ public class AppDbContext
                 f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
             );
 
+        // Many to Many between Person and Tag.
+        builder.Entity<Person>()
+            .HasMany(p => p.Tags)
+            .WithMany(p => p.People)
+            .UsingEntity<PersonTag>(
+                f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(g => g.TagId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(g => g.PersonId).OnDelete(DeleteBehavior.NoAction)
+            ); builder.Entity<Person>().HasMany(p => p.Tags);
+
         // Many to Many between Program and FundingSource.
         builder.Entity<Program>()
             .HasMany(p => p.FundingSources)
@@ -135,7 +147,14 @@ public class AppDbContext
                 f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).OnDelete(DeleteBehavior.NoAction)
             );
 
-        builder.Entity<Person>().HasMany(p => p.Tags);
+        // Many to Many between Program and Activity.
+        builder.Entity<Program>()
+            .HasMany(p => p.Activities)
+            .WithMany(p => p.Programs)
+            .UsingEntity<ProgramActivity>(
+                f => f.HasOne(g => g.Activity).WithMany().HasForeignKey(g => g.ActivityId).OnDelete(DeleteBehavior.NoAction),
+                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(g => g.ProgramId).OnDelete(DeleteBehavior.NoAction)
+            );
 
     }
 

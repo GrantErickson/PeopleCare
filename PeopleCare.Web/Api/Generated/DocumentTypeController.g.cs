@@ -21,75 +21,75 @@ using System.Threading.Tasks;
 
 namespace PeopleCare.Web.Api
 {
-    [Route("api/FormField")]
+    [Route("api/DocumentType")]
     [Authorize]
     [ServiceFilter(typeof(IApiActionFilter))]
-    public partial class FormFieldController
-        : BaseApiController<PeopleCare.Data.Models.Forms.FormField, FormFieldParameter, FormFieldResponse, PeopleCare.Data.AppDbContext>
+    public partial class DocumentTypeController
+        : BaseApiController<PeopleCare.Data.Models.DocumentType, DocumentTypeParameter, DocumentTypeResponse, PeopleCare.Data.AppDbContext>
     {
-        public FormFieldController(CrudContext<PeopleCare.Data.AppDbContext> context) : base(context)
+        public DocumentTypeController(CrudContext<PeopleCare.Data.AppDbContext> context) : base(context)
         {
-            GeneratedForClassViewModel = context.ReflectionRepository.GetClassViewModel<PeopleCare.Data.Models.Forms.FormField>();
+            GeneratedForClassViewModel = context.ReflectionRepository.GetClassViewModel<PeopleCare.Data.Models.DocumentType>();
         }
 
         [HttpGet("get/{id}")]
         [Authorize]
-        public virtual Task<ItemResult<FormFieldResponse>> Get(
+        public virtual Task<ItemResult<DocumentTypeResponse>> Get(
             string id,
             [FromQuery] DataSourceParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource)
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource)
             => GetImplementation(id, parameters, dataSource);
 
         [HttpGet("list")]
         [Authorize]
-        public virtual Task<ListResult<FormFieldResponse>> List(
+        public virtual Task<ListResult<DocumentTypeResponse>> List(
             [FromQuery] ListParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource)
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource)
             => ListImplementation(parameters, dataSource);
 
         [HttpGet("count")]
         [Authorize]
         public virtual Task<ItemResult<int>> Count(
             [FromQuery] FilterParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource)
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource)
             => CountImplementation(parameters, dataSource);
 
         [HttpPost("save")]
         [Consumes("application/x-www-form-urlencoded", "multipart/form-data")]
         [Authorize]
-        public virtual Task<ItemResult<FormFieldResponse>> Save(
-            [FromForm] FormFieldParameter dto,
+        public virtual Task<ItemResult<DocumentTypeResponse>> Save(
+            [FromForm] DocumentTypeParameter dto,
             [FromQuery] DataSourceParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource,
-            IBehaviors<PeopleCare.Data.Models.Forms.FormField> behaviors)
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource,
+            IBehaviors<PeopleCare.Data.Models.DocumentType> behaviors)
             => SaveImplementation(dto, parameters, dataSource, behaviors);
 
         [HttpPost("save")]
         [Consumes("application/json")]
         [Authorize]
-        public virtual Task<ItemResult<FormFieldResponse>> SaveFromJson(
-            [FromBody] FormFieldParameter dto,
+        public virtual Task<ItemResult<DocumentTypeResponse>> SaveFromJson(
+            [FromBody] DocumentTypeParameter dto,
             [FromQuery] DataSourceParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource,
-            IBehaviors<PeopleCare.Data.Models.Forms.FormField> behaviors)
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource,
+            IBehaviors<PeopleCare.Data.Models.DocumentType> behaviors)
             => SaveImplementation(dto, parameters, dataSource, behaviors);
 
         [HttpPost("bulkSave")]
         [Authorize]
-        public virtual Task<ItemResult<FormFieldResponse>> BulkSave(
+        public virtual Task<ItemResult<DocumentTypeResponse>> BulkSave(
             [FromBody] BulkSaveRequest dto,
             [FromQuery] DataSourceParameters parameters,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource,
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource,
             [FromServices] IDataSourceFactory dataSourceFactory,
             [FromServices] IBehaviorsFactory behaviorsFactory)
             => BulkSaveImplementation(dto, parameters, dataSource, dataSourceFactory, behaviorsFactory);
 
         [HttpPost("delete/{id}")]
         [Authorize]
-        public virtual Task<ItemResult<FormFieldResponse>> Delete(
+        public virtual Task<ItemResult<DocumentTypeResponse>> Delete(
             string id,
-            IBehaviors<PeopleCare.Data.Models.Forms.FormField> behaviors,
-            IDataSource<PeopleCare.Data.Models.Forms.FormField> dataSource)
+            IBehaviors<PeopleCare.Data.Models.DocumentType> behaviors,
+            IDataSource<PeopleCare.Data.Models.DocumentType> dataSource)
             => DeleteImplementation(id, new DataSourceParameters(), dataSource, behaviors);
     }
 }

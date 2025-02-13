@@ -95,6 +95,8 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramResponse> Programs { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ParticipationResponse> Participants { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -115,6 +117,25 @@ namespace PeopleCare.Web.Models
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
+            var propValPrograms = obj.Programs;
+            if (propValPrograms != null && (tree == null || tree[nameof(this.Programs)] != null))
+            {
+                this.Programs = propValPrograms
+                    .OrderBy(f => f.Name)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Program, ProgramResponse>(context, tree?[nameof(this.Programs)])).ToList();
+            }
+            else if (propValPrograms == null && tree?[nameof(this.Programs)] != null)
+            {
+                this.Programs = new ProgramResponse[0];
+            }
+
+            var propValParticipants = obj.Participants;
+            if (propValParticipants != null)
+            {
+                this.Participants = propValParticipants
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Participation, ParticipationResponse>(context, tree?[nameof(this.Participants)])).ToList();
+            }
+
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)
                 this.ModifiedBy = obj.ModifiedBy.MapToDto<PeopleCare.Data.Models.User, UserResponse>(context, tree?[nameof(this.ModifiedBy)]);
 
