@@ -1,9 +1,4 @@
 ﻿using PeopleCare.Data.Models.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PeopleCare.Data.Models;
 public class Participation : TenantedBase

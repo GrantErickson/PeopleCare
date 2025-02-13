@@ -10,7 +10,7 @@ public class FormType: TenantedBase
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string FormTypeId { get; set; } = null!;
     public string Name { get; set; } = null!;
-    public ICollection<Form> Forms { get; set; } = null!;
+    public ICollection<Form> Forms { get; set; } = [];
 
-    public ICollection<FormTypeField> Fields { get; set; } = null!;
+    public ICollection<FormTypeField> Fields { get; set; } = [];
 }

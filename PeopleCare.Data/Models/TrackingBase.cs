@@ -1,7 +1,4 @@
-﻿using PeopleCare.Data.Auth;
-using IntelliTect.Coalesce.Utilities;
-
-namespace PeopleCare.Data.Models;
+﻿namespace PeopleCare.Data.Models;
 
 public abstract class TrackingBase
 {

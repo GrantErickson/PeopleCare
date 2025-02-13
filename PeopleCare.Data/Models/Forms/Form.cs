@@ -19,6 +19,6 @@ public class Form: TenantedBase
 
     public DateTime Date { get; set; }
 
-    public ICollection<FormFieldValue> FormValues { get; set; } = null!;
+    public ICollection<FormFieldValue> FormValues { get; set; } = [];
 
 }
