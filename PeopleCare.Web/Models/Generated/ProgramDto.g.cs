@@ -68,7 +68,7 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FundingSourceResponse> FundingSources { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramFundingSourceResponse> ProgramFundingSources { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ActivityResponse> Activities { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
@@ -88,16 +88,16 @@ namespace PeopleCare.Web.Models
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValFundingSources = obj.FundingSources;
-            if (propValFundingSources != null && (tree == null || tree[nameof(this.FundingSources)] != null))
+            var propValProgramFundingSources = obj.ProgramFundingSources;
+            if (propValProgramFundingSources != null && (tree == null || tree[nameof(this.ProgramFundingSources)] != null))
             {
-                this.FundingSources = propValFundingSources
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.FundingSource, FundingSourceResponse>(context, tree?[nameof(this.FundingSources)])).ToList();
+                this.ProgramFundingSources = propValProgramFundingSources
+                    .OrderBy(f => f.ProgramFundingSourceId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.ProgramFundingSource, ProgramFundingSourceResponse>(context, tree?[nameof(this.ProgramFundingSources)])).ToList();
             }
-            else if (propValFundingSources == null && tree?[nameof(this.FundingSources)] != null)
+            else if (propValProgramFundingSources == null && tree?[nameof(this.ProgramFundingSources)] != null)
             {
-                this.FundingSources = new FundingSourceResponse[0];
+                this.ProgramFundingSources = new ProgramFundingSourceResponse[0];
             }
 
             var propValActivities = obj.Activities;

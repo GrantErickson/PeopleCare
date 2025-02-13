@@ -37,7 +37,7 @@ export enum ProgramState {
 
 export interface Activity extends Model<typeof metadata.Activity> {
   activityId: string | null
-  programs: Program[] | null
+  programActivities: ProgramActivity[] | null
   participants: Participation[] | null
   name: string | null
   description: string | null
@@ -575,12 +575,12 @@ export interface Person extends Model<typeof metadata.Person> {
   userId: string | null
   user: User | null
   regionsAvailable: Region[] | null
-  personTypes: PersonType[] | null
+  personTypes: PersonPersonType[] | null
   encounters: Encounter[] | null
   donations: Donation[] | null
   disbursements: Disbursement[] | null
   relationships: Relationship[] | null
-  tags: Tag[] | null
+  tags: PersonTag[] | null
   forms: Form[] | null
   documents: Document[] | null
   firstName: string | null
@@ -736,6 +736,40 @@ export class PersonRegionAccess {
 }
 
 
+export interface PersonTag extends Model<typeof metadata.PersonTag> {
+  personTagId: string | null
+  personId: string | null
+  person: Person | null
+  tagId: string | null
+  tag: Tag | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
+}
+export class PersonTag {
+  
+  /** Mutates the input object and its descendents into a valid PersonTag implementation. */
+  static convert(data?: Partial<PersonTag>): PersonTag {
+    return convertToModel(data || {}, metadata.PersonTag) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid PersonTag implementation. */
+  static map(data?: Partial<PersonTag>): PersonTag {
+    return mapToModel(data || {}, metadata.PersonTag) 
+  }
+  
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.PersonTag; }
+  
+  /** Instantiate a new PersonTag, optionally basing it on the given data. */
+  constructor(data?: Partial<PersonTag> | {[k: string]: any}) {
+    Object.assign(this, PersonTag.map(data || {}));
+  }
+}
+
+
 export interface PersonType extends Model<typeof metadata.PersonType> {
   personTypeId: string | null
   name: string | null
@@ -775,7 +809,7 @@ export interface Program extends Model<typeof metadata.Program> {
   programId: string | null
   name: string | null
   description: string | null
-  fundingSources: FundingSource[] | null
+  programFundingSources: ProgramFundingSource[] | null
   activities: Activity[] | null
   modifiedBy: User | null
   modifiedById: string | null
@@ -1295,6 +1329,7 @@ declare module "coalesce-vue/lib/model" {
     PersonPersonType: PersonPersonType
     PersonProgramFundingSource: PersonProgramFundingSource
     PersonRegionAccess: PersonRegionAccess
+    PersonTag: PersonTag
     PersonType: PersonType
     Program: Program
     ProgramActivity: ProgramActivity

@@ -98,6 +98,11 @@ export class PersonRegionAccessApiClient extends ModelApiClient<$models.PersonRe
 }
 
 
+export class PersonTagApiClient extends ModelApiClient<$models.PersonTag> {
+  constructor() { super($metadata.PersonTag) }
+}
+
+
 export class PersonTypeApiClient extends ModelApiClient<$models.PersonType> {
   constructor() { super($metadata.PersonType) }
 }
