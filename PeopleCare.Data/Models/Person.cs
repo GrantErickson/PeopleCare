@@ -1,12 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PeopleCare.Data.Models.Forms;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PeopleCare.Data.Models;
 public class Person: TenantedBase
@@ -21,20 +14,22 @@ public class Person: TenantedBase
     public User? User { get; set; }
 
 
-    public ICollection<Region> RegionsAvailable { get; set; } = null!;
+    public ICollection<Region> RegionsAvailable { get; set; } = [];
 
-    public ICollection<PersonType> PersonTypes { get; set; } = null!;
+    [ManyToMany($"{nameof(PersonType)}s", FarNavigationProperty = nameof(PersonPersonType.PersonType))]
+    public ICollection<PersonPersonType> PersonTypes { get; set; } = [];
 
-    public ICollection<Encounter> Encounters { get; set; } = null!;
     [InverseProperty(nameof(Encounter.Person))]
-    public ICollection<Donation> Donations { get; set; } = null!;
+    public ICollection<Encounter> Encounters { get; set; } = [];
+    public ICollection<Donation> Donations { get; set; } = [];
     [InverseProperty(nameof(Disbursement.Person))]
-    public ICollection<Disbursement> Disbursements { get; set; } = null!;
+    public ICollection<Disbursement> Disbursements { get; set; } = [];
     [InverseProperty(nameof(Relationship.Person))]
-    public ICollection<Relationship> Relationships { get; set; } = null!;
-    public ICollection<Tag> Tags { get; set; } = null!;
-    public ICollection<Form> Forms { get; set; } = null!;
-    public ICollection<Document> Documents { get; set; } = null!;
+    public ICollection<Relationship> Relationships { get; set; } = [];
+    [ManyToMany($"{nameof(Tag)}s", FarNavigationProperty = nameof(PersonTag.Tag))]
+    public ICollection<PersonTag> Tags { get; set; } = [];
+    public ICollection<Form> Forms { get; set; } = [];
+    public ICollection<Document> Documents { get; set; } = [];
 
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

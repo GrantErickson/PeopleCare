@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace PeopleCare.Data.Models;
 public class PersonType : TenantedBase
@@ -20,5 +15,5 @@ public class PersonType : TenantedBase
     [DisplayName("Is an Organization")]
     public bool IsOrganization { get; set; }
 
-    public ICollection<Person> People { get; set; } = null!;
+    public ICollection<Person> People { get; set; } = [];
 }

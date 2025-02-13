@@ -5,8 +5,8 @@ import { ViewModel, ListViewModel, ViewModelCollection, ServiceViewModel, type D
 
 export interface ActivityViewModel extends $models.Activity {
   activityId: string | null;
-  get programs(): ViewModelCollection<ProgramViewModel, $models.Program>;
-  set programs(value: (ProgramViewModel | $models.Program)[] | null);
+  get programActivities(): ViewModelCollection<ProgramActivityViewModel, $models.ProgramActivity>;
+  set programActivities(value: (ProgramActivityViewModel | $models.ProgramActivity)[] | null);
   participants: $models.Participation[] | null;
   name: string | null;
   description: string | null;
@@ -22,6 +22,15 @@ export interface ActivityViewModel extends $models.Activity {
   createdOn: Date | null;
 }
 export class ActivityViewModel extends ViewModel<$models.Activity, $apiClients.ActivityApiClient, string> implements $models.Activity  {
+  
+  
+  public addToProgramActivities(initialData?: DeepPartial<$models.ProgramActivity> | null) {
+    return this.$addChild('programActivities', initialData) as ProgramActivityViewModel
+  }
+  
+  get programs(): ReadonlyArray<ProgramViewModel> {
+    return (this.programActivities || []).map($ => $.program!).filter($ => $)
+  }
   
   constructor(initialData?: DeepPartial<$models.Activity> | null) {
     super($metadata.Activity, new $apiClients.ActivityApiClient(), initialData)
@@ -545,8 +554,8 @@ export interface PersonViewModel extends $models.Person {
   set user(value: UserViewModel | $models.User | null);
   get regionsAvailable(): ViewModelCollection<RegionViewModel, $models.Region>;
   set regionsAvailable(value: (RegionViewModel | $models.Region)[] | null);
-  get personTypes(): ViewModelCollection<PersonTypeViewModel, $models.PersonType>;
-  set personTypes(value: (PersonTypeViewModel | $models.PersonType)[] | null);
+  get personTypes(): ViewModelCollection<PersonPersonTypeViewModel, $models.PersonPersonType>;
+  set personTypes(value: (PersonPersonTypeViewModel | $models.PersonPersonType)[] | null);
   get encounters(): ViewModelCollection<EncounterViewModel, $models.Encounter>;
   set encounters(value: (EncounterViewModel | $models.Encounter)[] | null);
   get donations(): ViewModelCollection<DonationViewModel, $models.Donation>;
@@ -555,8 +564,8 @@ export interface PersonViewModel extends $models.Person {
   set disbursements(value: (DisbursementViewModel | $models.Disbursement)[] | null);
   get relationships(): ViewModelCollection<RelationshipViewModel, $models.Relationship>;
   set relationships(value: (RelationshipViewModel | $models.Relationship)[] | null);
-  get tags(): ViewModelCollection<TagViewModel, $models.Tag>;
-  set tags(value: (TagViewModel | $models.Tag)[] | null);
+  get tags(): ViewModelCollection<PersonTagViewModel, $models.PersonTag>;
+  set tags(value: (PersonTagViewModel | $models.PersonTag)[] | null);
   get forms(): ViewModelCollection<FormViewModel, $models.Form>;
   set forms(value: (FormViewModel | $models.Form)[] | null);
   get documents(): ViewModelCollection<DocumentViewModel, $models.Document>;
@@ -595,6 +604,15 @@ export interface PersonViewModel extends $models.Person {
 export class PersonViewModel extends ViewModel<$models.Person, $apiClients.PersonApiClient, string> implements $models.Person  {
   
   
+  public addToPersonTypes(initialData?: DeepPartial<$models.PersonPersonType> | null) {
+    return this.$addChild('personTypes', initialData) as PersonPersonTypeViewModel
+  }
+  
+  get personTypes(): ReadonlyArray<PersonTypeViewModel> {
+    return (this.personTypes || []).map($ => $.personType!).filter($ => $)
+  }
+  
+  
   public addToEncounters(initialData?: DeepPartial<$models.Encounter> | null) {
     return this.$addChild('encounters', initialData) as EncounterViewModel
   }
@@ -612,6 +630,15 @@ export class PersonViewModel extends ViewModel<$models.Person, $apiClients.Perso
   
   public addToRelationships(initialData?: DeepPartial<$models.Relationship> | null) {
     return this.$addChild('relationships', initialData) as RelationshipViewModel
+  }
+  
+  
+  public addToTags(initialData?: DeepPartial<$models.PersonTag> | null) {
+    return this.$addChild('tags', initialData) as PersonTagViewModel
+  }
+  
+  get tags(): ReadonlyArray<TagViewModel> {
+    return (this.tags || []).map($ => $.tag!).filter($ => $)
   }
   
   
@@ -742,6 +769,39 @@ export class PersonRegionAccessListViewModel extends ListViewModel<$models.Perso
 }
 
 
+export interface PersonTagViewModel extends $models.PersonTag {
+  personTagId: string | null;
+  personId: string | null;
+  get person(): PersonViewModel | null;
+  set person(value: PersonViewModel | $models.Person | null);
+  tagId: string | null;
+  get tag(): TagViewModel | null;
+  set tag(value: TagViewModel | $models.Tag | null);
+  get modifiedBy(): UserViewModel | null;
+  set modifiedBy(value: UserViewModel | $models.User | null);
+  modifiedById: string | null;
+  modifiedOn: Date | null;
+  get createdBy(): UserViewModel | null;
+  set createdBy(value: UserViewModel | $models.User | null);
+  createdById: string | null;
+  createdOn: Date | null;
+}
+export class PersonTagViewModel extends ViewModel<$models.PersonTag, $apiClients.PersonTagApiClient, string> implements $models.PersonTag  {
+  
+  constructor(initialData?: DeepPartial<$models.PersonTag> | null) {
+    super($metadata.PersonTag, new $apiClients.PersonTagApiClient(), initialData)
+  }
+}
+defineProps(PersonTagViewModel, $metadata.PersonTag)
+
+export class PersonTagListViewModel extends ListViewModel<$models.PersonTag, $apiClients.PersonTagApiClient, PersonTagViewModel> {
+  
+  constructor() {
+    super($metadata.PersonTag, new $apiClients.PersonTagApiClient())
+  }
+}
+
+
 export interface PersonTypeViewModel extends $models.PersonType {
   personTypeId: string | null;
   name: string | null;
@@ -779,8 +839,8 @@ export interface ProgramViewModel extends $models.Program {
   programId: string | null;
   name: string | null;
   description: string | null;
-  get fundingSources(): ViewModelCollection<FundingSourceViewModel, $models.FundingSource>;
-  set fundingSources(value: (FundingSourceViewModel | $models.FundingSource)[] | null);
+  get programFundingSources(): ViewModelCollection<ProgramFundingSourceViewModel, $models.ProgramFundingSource>;
+  set programFundingSources(value: (ProgramFundingSourceViewModel | $models.ProgramFundingSource)[] | null);
   get activities(): ViewModelCollection<ActivityViewModel, $models.Activity>;
   set activities(value: (ActivityViewModel | $models.Activity)[] | null);
   get modifiedBy(): UserViewModel | null;
@@ -793,6 +853,15 @@ export interface ProgramViewModel extends $models.Program {
   createdOn: Date | null;
 }
 export class ProgramViewModel extends ViewModel<$models.Program, $apiClients.ProgramApiClient, string> implements $models.Program  {
+  
+  
+  public addToProgramFundingSources(initialData?: DeepPartial<$models.ProgramFundingSource> | null) {
+    return this.$addChild('programFundingSources', initialData) as ProgramFundingSourceViewModel
+  }
+  
+  get fundingSources(): ReadonlyArray<FundingSourceViewModel> {
+    return (this.programFundingSources || []).map($ => $.fundingSource!).filter($ => $)
+  }
   
   constructor(initialData?: DeepPartial<$models.Program> | null) {
     super($metadata.Program, new $apiClients.ProgramApiClient(), initialData)
@@ -1262,6 +1331,7 @@ const viewModelTypeLookup = ViewModel.typeLookup = {
   PersonPersonType: PersonPersonTypeViewModel,
   PersonProgramFundingSource: PersonProgramFundingSourceViewModel,
   PersonRegionAccess: PersonRegionAccessViewModel,
+  PersonTag: PersonTagViewModel,
   PersonType: PersonTypeViewModel,
   Program: ProgramViewModel,
   ProgramActivity: ProgramActivityViewModel,
@@ -1295,6 +1365,7 @@ const listViewModelTypeLookup = ListViewModel.typeLookup = {
   PersonPersonType: PersonPersonTypeListViewModel,
   PersonProgramFundingSource: PersonProgramFundingSourceListViewModel,
   PersonRegionAccess: PersonRegionAccessListViewModel,
+  PersonTag: PersonTagListViewModel,
   PersonType: PersonTypeListViewModel,
   Program: ProgramListViewModel,
   ProgramActivity: ProgramActivityListViewModel,

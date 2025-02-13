@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PeopleCare.Data.Models;
+﻿namespace PeopleCare.Data.Models;
 public class Donation: TenantedBase
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,5 +16,5 @@ public class Donation: TenantedBase
     public int Quantity { get; set; }
     public DateOnly Date { get; set; }
 
-    public ICollection<Disbursement> Disbursements { get; set; } = null!;
+    public ICollection<Disbursement> Disbursements { get; set; } = [];
 }

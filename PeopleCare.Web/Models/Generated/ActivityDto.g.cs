@@ -95,7 +95,7 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramResponse> Programs { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramActivityResponse> ProgramActivities { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ParticipationResponse> Participants { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
@@ -117,16 +117,16 @@ namespace PeopleCare.Web.Models
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValPrograms = obj.Programs;
-            if (propValPrograms != null && (tree == null || tree[nameof(this.Programs)] != null))
+            var propValProgramActivities = obj.ProgramActivities;
+            if (propValProgramActivities != null && (tree == null || tree[nameof(this.ProgramActivities)] != null))
             {
-                this.Programs = propValPrograms
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Program, ProgramResponse>(context, tree?[nameof(this.Programs)])).ToList();
+                this.ProgramActivities = propValProgramActivities
+                    .OrderBy(f => f.ProgramActivityId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.ProgramActivity, ProgramActivityResponse>(context, tree?[nameof(this.ProgramActivities)])).ToList();
             }
-            else if (propValPrograms == null && tree?[nameof(this.Programs)] != null)
+            else if (propValProgramActivities == null && tree?[nameof(this.ProgramActivities)] != null)
             {
-                this.Programs = new ProgramResponse[0];
+                this.ProgramActivities = new ProgramActivityResponse[0];
             }
 
             var propValParticipants = obj.Participants;

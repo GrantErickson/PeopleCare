@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PeopleCare.Data.Models;
+﻿namespace PeopleCare.Data.Models;
 public class Encounter: TenantedBase
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,7 +8,6 @@ public class Encounter: TenantedBase
     public Person? Person { get; set; }
 
     public string ContactedById { get; set; } = null!;
-    [ForeignKey(nameof(ContactedById))]
     public Person? ContactedBy { get; set; }
 
     public string RegionId { get; set; } = null!;
@@ -27,6 +20,4 @@ public class Encounter: TenantedBase
     public string? Location { get; set; }
     public DateTime? Date { get; set; }
     public int? DurationInMinutes { get; set; }
-
-
 }
