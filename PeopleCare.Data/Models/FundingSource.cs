@@ -10,5 +10,6 @@ public class FundingSource: TenantedBase
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string FundingSourceId { get; set; } = null!;
     public string Name { get; set; } = null!;
-    public ICollection<Program> Programs { get; set; } = null!;
+    [ManyToMany("Programs", FarNavigationProperty = nameof(ProgramActivity.Program))]
+    public ICollection<ProgramFundingSource> ProgramFundingSources { get; set; } = null!;
 }

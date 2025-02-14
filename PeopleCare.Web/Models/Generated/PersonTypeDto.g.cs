@@ -95,7 +95,6 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonResponse> People { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -116,18 +115,6 @@ namespace PeopleCare.Web.Models
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValPeople = obj.People;
-            if (propValPeople != null && (tree == null || tree[nameof(this.People)] != null))
-            {
-                this.People = propValPeople
-                    .OrderBy(f => f.PersonId)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Person, PersonResponse>(context, tree?[nameof(this.People)])).ToList();
-            }
-            else if (propValPeople == null && tree?[nameof(this.People)] != null)
-            {
-                this.People = new PersonResponse[0];
-            }
-
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)
                 this.ModifiedBy = obj.ModifiedBy.MapToDto<PeopleCare.Data.Models.User, UserResponse>(context, tree?[nameof(this.ModifiedBy)]);
 

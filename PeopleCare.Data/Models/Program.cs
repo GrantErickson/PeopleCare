@@ -13,7 +13,9 @@ public class Program: TenantedBase
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    public ICollection<FundingSource> FundingSources { get; set; } = null!;
+    [ManyToMany("FundingSources", FarNavigationProperty = nameof(ProgramFundingSource.FundingSource))]
+    public ICollection<ProgramFundingSource> ProgramFundingSources { get; set; } = null!;
 
-    public ICollection<Activity> Activities { get; set; } = null!;
+    [ManyToMany("Activities", FarNavigationProperty = nameof(ProgramActivity.Activity))]
+    public ICollection<ProgramActivity> ProgramActivities { get; set; } = null!;
 }

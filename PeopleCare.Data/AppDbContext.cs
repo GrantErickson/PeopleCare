@@ -111,50 +111,58 @@ public class AppDbContext
 
     protected void OnModelCreatingCustom(ModelBuilder builder)
     {
-        // Many to Many between Person and Region for Users who have access to regions.
-        builder.Entity<Person>()
-            .HasMany(p => p.RegionsAvailable)
-            .WithMany(p => p.PeopleWithAccess)
-            .UsingEntity<PersonRegionAccess>(
-                f => f.HasOne(g => g.Region).WithMany().HasForeignKey(h => new { h.TenantId, h.RegionId }).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
-            );
+        builder.Entity<Encounter>()
+            .HasOne(f => f.Person)
+            .WithMany(f => f.Encounters)
+            .HasForeignKey(f=>f.PersonId);
 
-        // Many to Many between Person and PersonType.
-        builder.Entity<Person>()
-            .HasMany(p => p.PersonTypes)
-            .WithMany(p => p.People)
-            .UsingEntity<PersonPersonType>(
-                f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonTypeId }).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).OnDelete(DeleteBehavior.NoAction)
-            );
+        builder.Entity<Encounter>()
+            .HasOne(f => f.ContactedBy);
 
-        // Many to Many between Person and Tag.
-        builder.Entity<Person>()
-            .HasMany(p => p.Tags)
-            .WithMany(p => p.People)
-            .UsingEntity<PersonTag>(
-                f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(h => new { h.TenantId, h.TagId }).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).OnDelete(DeleteBehavior.NoAction)
-            );
+        //// Many to Many between Person and Region for Users who have access to regions.
+        //builder.Entity<Person>()
+        //    .HasMany(p => p.RegionsAvailable)
+        //    .WithMany(p => p.PeopleWithAccess)
+        //    .UsingEntity<PersonRegionAccess>(
+        //        f => f.HasOne(g => g.Region).WithMany().HasForeignKey(h => new { h.TenantId, h.RegionId }).OnDelete(DeleteBehavior.NoAction),
+        //        f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).HasForeignKey(t => t.TenantId).OnDelete(DeleteBehavior.NoAction)
+        //    );
 
-        // Many to Many between Program and FundingSource.
-        builder.Entity<Program>()
-            .HasMany(p => p.FundingSources)
-            .WithMany(p => p.Programs)
-            .UsingEntity<ProgramFundingSource>(
-                f => f.HasOne(g => g.FundingSource).WithMany().HasForeignKey(h => new { h.TenantId, h.FundingSourceId }).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(h => new { h.TenantId, h.ProgramId }).OnDelete(DeleteBehavior.NoAction)
-            );
+        //// Many to Many between Person and PersonType.
+        //builder.Entity<Person>()
+        //    .HasMany(p => p.PersonTypes)
+        //    .WithMany(p => p.People)
+        //    .UsingEntity<PersonPersonType>(
+        //        f => f.HasOne(g => g.PersonType).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonTypeId }).OnDelete(DeleteBehavior.NoAction),
+        //        f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).OnDelete(DeleteBehavior.NoAction)
+        //    );
 
-        // Many to Many between Program and Activity.
-        builder.Entity<Program>()
-            .HasMany(p => p.Activities)
-            .WithMany(p => p.Programs)
-            .UsingEntity<ProgramActivity>(
-                f => f.HasOne(g => g.Activity).WithMany().HasForeignKey(h => new { h.TenantId, h.ActivityId }).OnDelete(DeleteBehavior.NoAction),
-                f => f.HasOne(g => g.Program).WithMany().HasForeignKey(h => new { h.TenantId, h.ProgramId }).OnDelete(DeleteBehavior.NoAction)
-            );
+        //// Many to Many between Person and Tag.
+        //builder.Entity<Person>()
+        //    .HasMany(p => p.Tags)
+        //    .WithMany(p => p.People)
+        //    .UsingEntity<PersonTag>(
+        //        f => f.HasOne(g => g.Tag).WithMany().HasForeignKey(h => new { h.TenantId, h.TagId }).OnDelete(DeleteBehavior.NoAction),
+        //        f => f.HasOne(g => g.Person).WithMany().HasForeignKey(h => new { h.TenantId, h.PersonId }).OnDelete(DeleteBehavior.NoAction)
+        //    );
+
+        //// Many to Many between Program and FundingSource.
+        //builder.Entity<Program>()
+        //    .HasMany(p => p.FundingSources)
+        //    .WithMany(p => p.Programs)
+        //    .UsingEntity<ProgramFundingSource>(
+        //        f => f.HasOne(g => g.FundingSource).WithMany().HasForeignKey(h => new { h.TenantId, h.FundingSourceId }).OnDelete(DeleteBehavior.NoAction),
+        //        f => f.HasOne(g => g.Program).WithMany().HasForeignKey(h => new { h.TenantId, h.ProgramId }).OnDelete(DeleteBehavior.NoAction)
+        //    );
+
+        //// Many to Many between Program and Activity.
+        //builder.Entity<Program>()
+        //    .HasMany(p => p.Activities)
+        //    .WithMany(p => p.Programs)
+        //    .UsingEntity<ProgramActivity>(
+        //        f => f.HasOne(g => g.Activity).WithMany().HasForeignKey(h => new { h.TenantId, h.ActivityId }).OnDelete(DeleteBehavior.NoAction),
+        //        f => f.HasOne(g => g.Program).WithMany().HasForeignKey(h => new { h.TenantId, h.ProgramId }).OnDelete(DeleteBehavior.NoAction)
+        //    );
 
     }
 

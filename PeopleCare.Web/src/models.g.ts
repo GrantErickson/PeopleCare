@@ -37,7 +37,7 @@ export enum ProgramState {
 
 export interface Activity extends Model<typeof metadata.Activity> {
   activityId: string | null
-  programs: Program[] | null
+  programActivities: ProgramActivity[] | null
   participants: Participation[] | null
   name: string | null
   description: string | null
@@ -508,7 +508,7 @@ export class FormTypeField {
 export interface FundingSource extends Model<typeof metadata.FundingSource> {
   fundingSourceId: string | null
   name: string | null
-  programs: Program[] | null
+  programFundingSources: ProgramFundingSource[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -574,13 +574,13 @@ export interface Person extends Model<typeof metadata.Person> {
   region: Region | null
   userId: string | null
   user: User | null
-  regionsAvailable: Region[] | null
-  personTypes: PersonType[] | null
+  peopleRegionAccesses: PersonRegionAccess[] | null
+  personPersonTypes: PersonPersonType[] | null
   encounters: Encounter[] | null
   donations: Donation[] | null
   disbursements: Disbursement[] | null
   relationships: Relationship[] | null
-  tags: Tag[] | null
+  personTags: PersonTag[] | null
   forms: Form[] | null
   documents: Document[] | null
   firstName: string | null
@@ -742,7 +742,6 @@ export interface PersonType extends Model<typeof metadata.PersonType> {
   hasCareNeeds: boolean | null
   hasCareAssets: boolean | null
   isOrganization: boolean | null
-  people: Person[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -775,8 +774,8 @@ export interface Program extends Model<typeof metadata.Program> {
   programId: string | null
   name: string | null
   description: string | null
-  fundingSources: FundingSource[] | null
-  activities: Activity[] | null
+  programFundingSources: ProgramFundingSource[] | null
+  programActivities: ProgramActivity[] | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -880,7 +879,6 @@ export interface Region extends Model<typeof metadata.Region> {
   parentRegionId: string | null
   parentRegion: Region | null
   children: Region[] | null
-  peopleWithAccess: Person[] | null
   
   /** Returns the index of the level of this region in the hierarchy with 0 being the top */
   level: number | null
@@ -1235,6 +1233,40 @@ export class Participation {
 }
 
 
+export interface PersonTag extends Model<typeof metadata.PersonTag> {
+  personTagId: string | null
+  personId: string | null
+  person: Person | null
+  tagId: string | null
+  tag: Tag | null
+  modifiedBy: User | null
+  modifiedById: string | null
+  modifiedOn: Date | null
+  createdBy: User | null
+  createdById: string | null
+  createdOn: Date | null
+}
+export class PersonTag {
+  
+  /** Mutates the input object and its descendents into a valid PersonTag implementation. */
+  static convert(data?: Partial<PersonTag>): PersonTag {
+    return convertToModel(data || {}, metadata.PersonTag) 
+  }
+  
+  /** Maps the input object and its descendents to a new, valid PersonTag implementation. */
+  static map(data?: Partial<PersonTag>): PersonTag {
+    return mapToModel(data || {}, metadata.PersonTag) 
+  }
+  
+  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.PersonTag; }
+  
+  /** Instantiate a new PersonTag, optionally basing it on the given data. */
+  constructor(data?: Partial<PersonTag> | {[k: string]: any}) {
+    Object.assign(this, PersonTag.map(data || {}));
+  }
+}
+
+
 export interface UserInfo extends Model<typeof metadata.UserInfo> {
   id: string | null
   userName: string | null
@@ -1295,6 +1327,7 @@ declare module "coalesce-vue/lib/model" {
     PersonPersonType: PersonPersonType
     PersonProgramFundingSource: PersonProgramFundingSource
     PersonRegionAccess: PersonRegionAccess
+    PersonTag: PersonTag
     PersonType: PersonType
     Program: Program
     ProgramActivity: ProgramActivity

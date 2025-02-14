@@ -60,7 +60,7 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramResponse> Programs { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramFundingSourceResponse> ProgramFundingSources { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -78,16 +78,16 @@ namespace PeopleCare.Web.Models
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValPrograms = obj.Programs;
-            if (propValPrograms != null && (tree == null || tree[nameof(this.Programs)] != null))
+            var propValProgramFundingSources = obj.ProgramFundingSources;
+            if (propValProgramFundingSources != null && (tree == null || tree[nameof(this.ProgramFundingSources)] != null))
             {
-                this.Programs = propValPrograms
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Program, ProgramResponse>(context, tree?[nameof(this.Programs)])).ToList();
+                this.ProgramFundingSources = propValProgramFundingSources
+                    .OrderBy(f => f.ProgramFundingSourceId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.ProgramFundingSource, ProgramFundingSourceResponse>(context, tree?[nameof(this.ProgramFundingSources)])).ToList();
             }
-            else if (propValPrograms == null && tree?[nameof(this.Programs)] != null)
+            else if (propValProgramFundingSources == null && tree?[nameof(this.ProgramFundingSources)] != null)
             {
-                this.Programs = new ProgramResponse[0];
+                this.ProgramFundingSources = new ProgramFundingSourceResponse[0];
             }
 
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)

@@ -89,7 +89,6 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? CreatedOn { get; set; }
         public PeopleCare.Web.Models.RegionResponse ParentRegion { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RegionResponse> Children { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonResponse> PeopleWithAccess { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -123,18 +122,6 @@ namespace PeopleCare.Web.Models
             else if (propValChildren == null && tree?[nameof(this.Children)] != null)
             {
                 this.Children = new RegionResponse[0];
-            }
-
-            var propValPeopleWithAccess = obj.PeopleWithAccess;
-            if (propValPeopleWithAccess != null && (tree == null || tree[nameof(this.PeopleWithAccess)] != null))
-            {
-                this.PeopleWithAccess = propValPeopleWithAccess
-                    .OrderBy(f => f.PersonId)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Person, PersonResponse>(context, tree?[nameof(this.PeopleWithAccess)])).ToList();
-            }
-            else if (propValPeopleWithAccess == null && tree?[nameof(this.PeopleWithAccess)] != null)
-            {
-                this.PeopleWithAccess = new PersonResponse[0];
             }
 
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)

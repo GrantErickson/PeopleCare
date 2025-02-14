@@ -21,10 +21,13 @@ public class Person: TenantedBase
     public User? User { get; set; }
 
 
-    public ICollection<Region> RegionsAvailable { get; set; } = null!;
+    [ManyToMany("AvailableRegions", FarNavigationProperty = nameof(PersonRegionAccess.Region))]
+    public ICollection<PersonRegionAccess> PeopleRegionAccesses { get; set; } = null!;
 
-    public ICollection<PersonType> PersonTypes { get; set; } = null!;
+    [ManyToMany("PersonTypes", FarNavigationProperty = nameof(PersonPersonType.PersonType))]
+    public ICollection<PersonPersonType> PersonPersonTypes { get; set; } = null!;
 
+    [ForeignKey(nameof(Encounter.PersonId))]
     public ICollection<Encounter> Encounters { get; set; } = null!;
     [InverseProperty(nameof(Encounter.Person))]
     public ICollection<Donation> Donations { get; set; } = null!;
@@ -32,7 +35,7 @@ public class Person: TenantedBase
     public ICollection<Disbursement> Disbursements { get; set; } = null!;
     [InverseProperty(nameof(Relationship.Person))]
     public ICollection<Relationship> Relationships { get; set; } = null!;
-    public ICollection<Tag> Tags { get; set; } = null!;
+    public ICollection<PersonTag> PersonTags { get; set; } = null!;
     public ICollection<Form> Forms { get; set; } = null!;
     public ICollection<Document> Documents { get; set; } = null!;
 

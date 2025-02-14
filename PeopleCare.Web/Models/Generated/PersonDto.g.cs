@@ -223,13 +223,13 @@ namespace PeopleCare.Web.Models
         public System.DateTimeOffset? CreatedOn { get; set; }
         public PeopleCare.Web.Models.RegionResponse Region { get; set; }
         public PeopleCare.Web.Models.UserResponse User { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RegionResponse> RegionsAvailable { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonTypeResponse> PersonTypes { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonRegionAccessResponse> PeopleRegionAccesses { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonPersonTypeResponse> PersonPersonTypes { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.EncounterResponse> Encounters { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DonationResponse> Donations { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DisbursementResponse> Disbursements { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RelationshipResponse> Relationships { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.TagResponse> Tags { get; set; }
+        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonTagResponse> PersonTags { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormResponse> Forms { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DocumentResponse> Documents { get; set; }
         public PeopleCare.Web.Models.EthnicityResponse Ethnicity { get; set; }
@@ -275,28 +275,28 @@ namespace PeopleCare.Web.Models
             if (tree == null || tree[nameof(this.User)] != null)
                 this.User = obj.User.MapToDto<PeopleCare.Data.Models.User, UserResponse>(context, tree?[nameof(this.User)]);
 
-            var propValRegionsAvailable = obj.RegionsAvailable;
-            if (propValRegionsAvailable != null && (tree == null || tree[nameof(this.RegionsAvailable)] != null))
+            var propValPeopleRegionAccesses = obj.PeopleRegionAccesses;
+            if (propValPeopleRegionAccesses != null && (tree == null || tree[nameof(this.PeopleRegionAccesses)] != null))
             {
-                this.RegionsAvailable = propValRegionsAvailable
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Region, RegionResponse>(context, tree?[nameof(this.RegionsAvailable)])).ToList();
+                this.PeopleRegionAccesses = propValPeopleRegionAccesses
+                    .OrderBy(f => f.PersonRegionAccessId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.PersonRegionAccess, PersonRegionAccessResponse>(context, tree?[nameof(this.PeopleRegionAccesses)])).ToList();
             }
-            else if (propValRegionsAvailable == null && tree?[nameof(this.RegionsAvailable)] != null)
+            else if (propValPeopleRegionAccesses == null && tree?[nameof(this.PeopleRegionAccesses)] != null)
             {
-                this.RegionsAvailable = new RegionResponse[0];
+                this.PeopleRegionAccesses = new PersonRegionAccessResponse[0];
             }
 
-            var propValPersonTypes = obj.PersonTypes;
-            if (propValPersonTypes != null && (tree == null || tree[nameof(this.PersonTypes)] != null))
+            var propValPersonPersonTypes = obj.PersonPersonTypes;
+            if (propValPersonPersonTypes != null && (tree == null || tree[nameof(this.PersonPersonTypes)] != null))
             {
-                this.PersonTypes = propValPersonTypes
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.PersonType, PersonTypeResponse>(context, tree?[nameof(this.PersonTypes)])).ToList();
+                this.PersonPersonTypes = propValPersonPersonTypes
+                    .OrderBy(f => f.PersonPersonTypeId)
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.PersonPersonType, PersonPersonTypeResponse>(context, tree?[nameof(this.PersonPersonTypes)])).ToList();
             }
-            else if (propValPersonTypes == null && tree?[nameof(this.PersonTypes)] != null)
+            else if (propValPersonPersonTypes == null && tree?[nameof(this.PersonPersonTypes)] != null)
             {
-                this.PersonTypes = new PersonTypeResponse[0];
+                this.PersonPersonTypes = new PersonPersonTypeResponse[0];
             }
 
             var propValEncounters = obj.Encounters;
@@ -347,16 +347,11 @@ namespace PeopleCare.Web.Models
                 this.Relationships = new RelationshipResponse[0];
             }
 
-            var propValTags = obj.Tags;
-            if (propValTags != null && (tree == null || tree[nameof(this.Tags)] != null))
+            var propValPersonTags = obj.PersonTags;
+            if (propValPersonTags != null)
             {
-                this.Tags = propValTags
-                    .OrderBy(f => f.Name)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Tag, TagResponse>(context, tree?[nameof(this.Tags)])).ToList();
-            }
-            else if (propValTags == null && tree?[nameof(this.Tags)] != null)
-            {
-                this.Tags = new TagResponse[0];
+                this.PersonTags = propValPersonTags
+                    .Select(f => f.MapToDto<PeopleCare.Data.Models.PersonTag, PersonTagResponse>(context, tree?[nameof(this.PersonTags)])).ToList();
             }
 
             var propValForms = obj.Forms;

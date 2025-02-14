@@ -11,6 +11,7 @@ public class Encounter: TenantedBase
     public string EncounterId { get; set; } = null!;
 
     public string PersonId { get; set; } = null!;
+    [ForeignKey(nameof(PersonId))]
     public Person? Person { get; set; }
 
     public string ContactedById { get; set; } = null!;

@@ -5,8 +5,8 @@ import { ViewModel, ListViewModel, ViewModelCollection, ServiceViewModel, type D
 
 export interface ActivityViewModel extends $models.Activity {
   activityId: string | null;
-  get programs(): ViewModelCollection<ProgramViewModel, $models.Program>;
-  set programs(value: (ProgramViewModel | $models.Program)[] | null);
+  get programActivities(): ViewModelCollection<ProgramActivityViewModel, $models.ProgramActivity>;
+  set programActivities(value: (ProgramActivityViewModel | $models.ProgramActivity)[] | null);
   participants: $models.Participation[] | null;
   name: string | null;
   description: string | null;
@@ -22,6 +22,15 @@ export interface ActivityViewModel extends $models.Activity {
   createdOn: Date | null;
 }
 export class ActivityViewModel extends ViewModel<$models.Activity, $apiClients.ActivityApiClient, string> implements $models.Activity  {
+  
+  
+  public addToProgramActivities(initialData?: DeepPartial<$models.ProgramActivity> | null) {
+    return this.$addChild('programActivities', initialData) as ProgramActivityViewModel
+  }
+  
+  get programs(): ReadonlyArray<ProgramViewModel> {
+    return (this.programActivities || []).map($ => $.program!).filter($ => $)
+  }
   
   constructor(initialData?: DeepPartial<$models.Activity> | null) {
     super($metadata.Activity, new $apiClients.ActivityApiClient(), initialData)
@@ -480,8 +489,8 @@ export class FormTypeFieldListViewModel extends ListViewModel<$models.FormTypeFi
 export interface FundingSourceViewModel extends $models.FundingSource {
   fundingSourceId: string | null;
   name: string | null;
-  get programs(): ViewModelCollection<ProgramViewModel, $models.Program>;
-  set programs(value: (ProgramViewModel | $models.Program)[] | null);
+  get programFundingSources(): ViewModelCollection<ProgramFundingSourceViewModel, $models.ProgramFundingSource>;
+  set programFundingSources(value: (ProgramFundingSourceViewModel | $models.ProgramFundingSource)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -492,6 +501,15 @@ export interface FundingSourceViewModel extends $models.FundingSource {
   createdOn: Date | null;
 }
 export class FundingSourceViewModel extends ViewModel<$models.FundingSource, $apiClients.FundingSourceApiClient, string> implements $models.FundingSource  {
+  
+  
+  public addToProgramFundingSources(initialData?: DeepPartial<$models.ProgramFundingSource> | null) {
+    return this.$addChild('programFundingSources', initialData) as ProgramFundingSourceViewModel
+  }
+  
+  get programs(): ReadonlyArray<ProgramViewModel> {
+    return (this.programFundingSources || []).map($ => $.program!).filter($ => $)
+  }
   
   constructor(initialData?: DeepPartial<$models.FundingSource> | null) {
     super($metadata.FundingSource, new $apiClients.FundingSourceApiClient(), initialData)
@@ -543,10 +561,10 @@ export interface PersonViewModel extends $models.Person {
   userId: string | null;
   get user(): UserViewModel | null;
   set user(value: UserViewModel | $models.User | null);
-  get regionsAvailable(): ViewModelCollection<RegionViewModel, $models.Region>;
-  set regionsAvailable(value: (RegionViewModel | $models.Region)[] | null);
-  get personTypes(): ViewModelCollection<PersonTypeViewModel, $models.PersonType>;
-  set personTypes(value: (PersonTypeViewModel | $models.PersonType)[] | null);
+  get peopleRegionAccesses(): ViewModelCollection<PersonRegionAccessViewModel, $models.PersonRegionAccess>;
+  set peopleRegionAccesses(value: (PersonRegionAccessViewModel | $models.PersonRegionAccess)[] | null);
+  get personPersonTypes(): ViewModelCollection<PersonPersonTypeViewModel, $models.PersonPersonType>;
+  set personPersonTypes(value: (PersonPersonTypeViewModel | $models.PersonPersonType)[] | null);
   get encounters(): ViewModelCollection<EncounterViewModel, $models.Encounter>;
   set encounters(value: (EncounterViewModel | $models.Encounter)[] | null);
   get donations(): ViewModelCollection<DonationViewModel, $models.Donation>;
@@ -555,8 +573,7 @@ export interface PersonViewModel extends $models.Person {
   set disbursements(value: (DisbursementViewModel | $models.Disbursement)[] | null);
   get relationships(): ViewModelCollection<RelationshipViewModel, $models.Relationship>;
   set relationships(value: (RelationshipViewModel | $models.Relationship)[] | null);
-  get tags(): ViewModelCollection<TagViewModel, $models.Tag>;
-  set tags(value: (TagViewModel | $models.Tag)[] | null);
+  personTags: $models.PersonTag[] | null;
   get forms(): ViewModelCollection<FormViewModel, $models.Form>;
   set forms(value: (FormViewModel | $models.Form)[] | null);
   get documents(): ViewModelCollection<DocumentViewModel, $models.Document>;
@@ -593,6 +610,24 @@ export interface PersonViewModel extends $models.Person {
   createdOn: Date | null;
 }
 export class PersonViewModel extends ViewModel<$models.Person, $apiClients.PersonApiClient, string> implements $models.Person  {
+  
+  
+  public addToPeopleRegionAccesses(initialData?: DeepPartial<$models.PersonRegionAccess> | null) {
+    return this.$addChild('peopleRegionAccesses', initialData) as PersonRegionAccessViewModel
+  }
+  
+  get availableRegions(): ReadonlyArray<RegionViewModel> {
+    return (this.peopleRegionAccesses || []).map($ => $.region!).filter($ => $)
+  }
+  
+  
+  public addToPersonPersonTypes(initialData?: DeepPartial<$models.PersonPersonType> | null) {
+    return this.$addChild('personPersonTypes', initialData) as PersonPersonTypeViewModel
+  }
+  
+  get personTypes(): ReadonlyArray<PersonTypeViewModel> {
+    return (this.personPersonTypes || []).map($ => $.personType!).filter($ => $)
+  }
   
   
   public addToEncounters(initialData?: DeepPartial<$models.Encounter> | null) {
@@ -748,8 +783,6 @@ export interface PersonTypeViewModel extends $models.PersonType {
   hasCareNeeds: boolean | null;
   hasCareAssets: boolean | null;
   isOrganization: boolean | null;
-  get people(): ViewModelCollection<PersonViewModel, $models.Person>;
-  set people(value: (PersonViewModel | $models.Person)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -779,10 +812,10 @@ export interface ProgramViewModel extends $models.Program {
   programId: string | null;
   name: string | null;
   description: string | null;
-  get fundingSources(): ViewModelCollection<FundingSourceViewModel, $models.FundingSource>;
-  set fundingSources(value: (FundingSourceViewModel | $models.FundingSource)[] | null);
-  get activities(): ViewModelCollection<ActivityViewModel, $models.Activity>;
-  set activities(value: (ActivityViewModel | $models.Activity)[] | null);
+  get programFundingSources(): ViewModelCollection<ProgramFundingSourceViewModel, $models.ProgramFundingSource>;
+  set programFundingSources(value: (ProgramFundingSourceViewModel | $models.ProgramFundingSource)[] | null);
+  get programActivities(): ViewModelCollection<ProgramActivityViewModel, $models.ProgramActivity>;
+  set programActivities(value: (ProgramActivityViewModel | $models.ProgramActivity)[] | null);
   get modifiedBy(): UserViewModel | null;
   set modifiedBy(value: UserViewModel | $models.User | null);
   modifiedById: string | null;
@@ -793,6 +826,24 @@ export interface ProgramViewModel extends $models.Program {
   createdOn: Date | null;
 }
 export class ProgramViewModel extends ViewModel<$models.Program, $apiClients.ProgramApiClient, string> implements $models.Program  {
+  
+  
+  public addToProgramFundingSources(initialData?: DeepPartial<$models.ProgramFundingSource> | null) {
+    return this.$addChild('programFundingSources', initialData) as ProgramFundingSourceViewModel
+  }
+  
+  get fundingSources(): ReadonlyArray<FundingSourceViewModel> {
+    return (this.programFundingSources || []).map($ => $.fundingSource!).filter($ => $)
+  }
+  
+  
+  public addToProgramActivities(initialData?: DeepPartial<$models.ProgramActivity> | null) {
+    return this.$addChild('programActivities', initialData) as ProgramActivityViewModel
+  }
+  
+  get activities(): ReadonlyArray<ActivityViewModel> {
+    return (this.programActivities || []).map($ => $.activity!).filter($ => $)
+  }
   
   constructor(initialData?: DeepPartial<$models.Program> | null) {
     super($metadata.Program, new $apiClients.ProgramApiClient(), initialData)
@@ -883,8 +934,6 @@ export interface RegionViewModel extends $models.Region {
   set parentRegion(value: RegionViewModel | $models.Region | null);
   get children(): ViewModelCollection<RegionViewModel, $models.Region>;
   set children(value: (RegionViewModel | $models.Region)[] | null);
-  get peopleWithAccess(): ViewModelCollection<PersonViewModel, $models.Person>;
-  set peopleWithAccess(value: (PersonViewModel | $models.Person)[] | null);
   
   /** Returns the index of the level of this region in the hierarchy with 0 being the top */
   level: number | null;
@@ -898,11 +947,6 @@ export interface RegionViewModel extends $models.Region {
   createdOn: Date | null;
 }
 export class RegionViewModel extends ViewModel<$models.Region, $apiClients.RegionApiClient, string> implements $models.Region  {
-  
-  
-  public addToPeopleWithAccess(initialData?: DeepPartial<$models.Person> | null) {
-    return this.$addChild('peopleWithAccess', initialData) as PersonViewModel
-  }
   
   constructor(initialData?: DeepPartial<$models.Region> | null) {
     super($metadata.Region, new $apiClients.RegionApiClient(), initialData)

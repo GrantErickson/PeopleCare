@@ -19,6 +19,4 @@ public class PersonType : TenantedBase
     public bool HasCareAssets { get; set; }
     [DisplayName("Is an Organization")]
     public bool IsOrganization { get; set; }
-
-    public ICollection<Person> People { get; set; } = null!;
 }

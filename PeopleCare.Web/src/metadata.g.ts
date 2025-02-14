@@ -118,18 +118,29 @@ export const Activity = domain.types.Activity = {
       role: "primaryKey",
       hidden: 3 as HiddenAreas,
     },
-    programs: {
-      name: "programs",
-      displayName: "Programs",
+    programActivities: {
+      name: "programActivities",
+      displayName: "Program Activities",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.Program as ModelType & { name: "Program" }) },
+        get typeDef() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activityId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activity as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "programs",
+        displayName: "Programs",
+        get typeDef() { return (domain.types.Program as ModelType & { name: "Program" }) },
+        get farForeignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.programId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.program as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activityId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activity as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
     participants: {
@@ -1879,18 +1890,29 @@ export const FundingSource = domain.types.FundingSource = {
         required: val => (val != null && val !== '') || "Name is required.",
       }
     },
-    programs: {
-      name: "programs",
-      displayName: "Programs",
+    programFundingSources: {
+      name: "programFundingSources",
+      displayName: "Program Funding Sources",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.Program as ModelType & { name: "Program" }) },
+        get typeDef() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSourceId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSource as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "programs",
+        displayName: "Programs",
+        get typeDef() { return (domain.types.Program as ModelType & { name: "Program" }) },
+        get farForeignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.programId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.program as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSourceId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSource as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
     modifiedById: {
@@ -2083,7 +2105,6 @@ export const Person = domain.types.Person = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.Person as ModelType & { name: "Person" }).props.regionId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Region as ModelType & { name: "Region" }).props.regionId as PrimaryKeyProperty },
-      get inverseNavigation() { return (domain.types.Region as ModelType & { name: "Region" }).props.peopleWithAccess as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     userId: {
@@ -2106,32 +2127,54 @@ export const Person = domain.types.Person = {
       get principalKey() { return (domain.types.User as ModelType & { name: "User" }).props.id as PrimaryKeyProperty },
       dontSerialize: true,
     },
-    regionsAvailable: {
-      name: "regionsAvailable",
-      displayName: "Regions Available",
+    peopleRegionAccesses: {
+      name: "peopleRegionAccesses",
+      displayName: "People Region Accesses",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.Region as ModelType & { name: "Region" }) },
+        get typeDef() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.personId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.person as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "availableRegions",
+        displayName: "Available Regions",
+        get typeDef() { return (domain.types.Region as ModelType & { name: "Region" }) },
+        get farForeignKey() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.regionId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.region as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.personId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.person as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
-    personTypes: {
-      name: "personTypes",
-      displayName: "Person Types",
+    personPersonTypes: {
+      name: "personPersonTypes",
+      displayName: "Person Person Types",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.PersonType as ModelType & { name: "PersonType" }) },
+        get typeDef() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.personId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.person as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "personTypes",
+        displayName: "Person Types",
+        get typeDef() { return (domain.types.PersonType as ModelType & { name: "PersonType" }) },
+        get farForeignKey() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.personTypeId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.personType as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.personId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.person as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
     encounters: {
@@ -2198,16 +2241,16 @@ export const Person = domain.types.Person = {
       get inverseNavigation() { return (domain.types.Relationship as ModelType & { name: "Relationship" }).props.person as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
-    tags: {
-      name: "tags",
-      displayName: "Tags",
+    personTags: {
+      name: "personTags",
+      displayName: "Person Tags",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
-        type: "model",
-        get typeDef() { return (domain.types.Tag as ModelType & { name: "Tag" }) },
+        type: "object",
+        get typeDef() { return (domain.types.PersonTag as ObjectType & { name: "PersonTag" }) },
       },
       role: "value",
       dontSerialize: true,
@@ -2485,6 +2528,7 @@ export const PersonPersonType = domain.types.PersonPersonType = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.PersonPersonType as ModelType & { name: "PersonPersonType" }).props.personId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Person as ModelType & { name: "Person" }).props.personId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Person as ModelType & { name: "Person" }).props.personPersonTypes as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     personTypeId: {
@@ -2775,6 +2819,7 @@ export const PersonRegionAccess = domain.types.PersonRegionAccess = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.PersonRegionAccess as ModelType & { name: "PersonRegionAccess" }).props.personId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Person as ModelType & { name: "Person" }).props.personId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Person as ModelType & { name: "Person" }).props.peopleRegionAccesses as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     regionId: {
@@ -2907,20 +2952,6 @@ export const PersonType = domain.types.PersonType = {
       type: "boolean",
       role: "value",
     },
-    people: {
-      name: "people",
-      displayName: "People",
-      type: "collection",
-      itemType: {
-        name: "$collectionItem",
-        displayName: "",
-        role: "value",
-        type: "model",
-        get typeDef() { return (domain.types.Person as ModelType & { name: "Person" }) },
-      },
-      role: "value",
-      dontSerialize: true,
-    },
     modifiedById: {
       name: "modifiedById",
       displayName: "Modified By Id",
@@ -3019,32 +3050,54 @@ export const Program = domain.types.Program = {
         required: val => (val != null && val !== '') || "Description is required.",
       }
     },
-    fundingSources: {
-      name: "fundingSources",
-      displayName: "Funding Sources",
+    programFundingSources: {
+      name: "programFundingSources",
+      displayName: "Program Funding Sources",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.FundingSource as ModelType & { name: "FundingSource" }) },
+        get typeDef() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.programId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.program as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "fundingSources",
+        displayName: "Funding Sources",
+        get typeDef() { return (domain.types.FundingSource as ModelType & { name: "FundingSource" }) },
+        get farForeignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSourceId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSource as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.programId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.program as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
-    activities: {
-      name: "activities",
-      displayName: "Activities",
+    programActivities: {
+      name: "programActivities",
+      displayName: "Program Activities",
       type: "collection",
       itemType: {
         name: "$collectionItem",
         displayName: "",
         role: "value",
         type: "model",
-        get typeDef() { return (domain.types.Activity as ModelType & { name: "Activity" }) },
+        get typeDef() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }) },
       },
-      role: "value",
+      role: "collectionNavigation",
+      get foreignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.programId as ForeignKeyProperty },
+      get inverseNavigation() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.program as ModelReferenceNavigationProperty },
+      manyToMany: {
+        name: "activities",
+        displayName: "Activities",
+        get typeDef() { return (domain.types.Activity as ModelType & { name: "Activity" }) },
+        get farForeignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activityId as ForeignKeyProperty },
+        get farNavigationProp() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activity as ModelReferenceNavigationProperty },
+        get nearForeignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.programId as ForeignKeyProperty },
+        get nearNavigationProp() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.program as ModelReferenceNavigationProperty },
+      },
       dontSerialize: true,
     },
     modifiedById: {
@@ -3148,6 +3201,7 @@ export const ProgramActivity = domain.types.ProgramActivity = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.programId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Program as ModelType & { name: "Program" }).props.programId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Program as ModelType & { name: "Program" }).props.programActivities as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     activityId: {
@@ -3171,6 +3225,7 @@ export const ProgramActivity = domain.types.ProgramActivity = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.ProgramActivity as ModelType & { name: "ProgramActivity" }).props.activityId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Activity as ModelType & { name: "Activity" }).props.activityId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Activity as ModelType & { name: "Activity" }).props.programActivities as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     modifiedById: {
@@ -3274,6 +3329,7 @@ export const ProgramFundingSource = domain.types.ProgramFundingSource = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.programId as ForeignKeyProperty },
       get principalKey() { return (domain.types.Program as ModelType & { name: "Program" }).props.programId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.Program as ModelType & { name: "Program" }).props.programFundingSources as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     fundingSourceId: {
@@ -3297,6 +3353,7 @@ export const ProgramFundingSource = domain.types.ProgramFundingSource = {
       role: "referenceNavigation",
       get foreignKey() { return (domain.types.ProgramFundingSource as ModelType & { name: "ProgramFundingSource" }).props.fundingSourceId as ForeignKeyProperty },
       get principalKey() { return (domain.types.FundingSource as ModelType & { name: "FundingSource" }).props.fundingSourceId as PrimaryKeyProperty },
+      get inverseNavigation() { return (domain.types.FundingSource as ModelType & { name: "FundingSource" }).props.programFundingSources as ModelCollectionNavigationProperty },
       dontSerialize: true,
     },
     modifiedById: {
@@ -3429,22 +3486,6 @@ export const Region = domain.types.Region = {
         get typeDef() { return (domain.types.Region as ModelType & { name: "Region" }) },
       },
       role: "value",
-      dontSerialize: true,
-    },
-    peopleWithAccess: {
-      name: "peopleWithAccess",
-      displayName: "People With Access",
-      type: "collection",
-      itemType: {
-        name: "$collectionItem",
-        displayName: "",
-        role: "value",
-        type: "model",
-        get typeDef() { return (domain.types.Person as ModelType & { name: "Person" }) },
-      },
-      role: "collectionNavigation",
-      get foreignKey() { return (domain.types.Person as ModelType & { name: "Person" }).props.regionId as ForeignKeyProperty },
-      get inverseNavigation() { return (domain.types.Person as ModelType & { name: "Person" }).props.region as ModelReferenceNavigationProperty },
       dontSerialize: true,
     },
     level: {
@@ -4726,6 +4767,102 @@ export const Participation = domain.types.Participation = {
     },
   },
 }
+export const PersonTag = domain.types.PersonTag = {
+  name: "PersonTag" as const,
+  displayName: "Person Tag",
+  type: "object",
+  props: {
+    personTagId: {
+      name: "personTagId",
+      displayName: "Person Tag Id",
+      type: "string",
+      role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Person Tag Id is required.",
+      }
+    },
+    personId: {
+      name: "personId",
+      displayName: "Person Id",
+      type: "string",
+      role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Person Id is required.",
+      }
+    },
+    person: {
+      name: "person",
+      displayName: "Person",
+      type: "model",
+      get typeDef() { return (domain.types.Person as ModelType & { name: "Person" }) },
+      role: "value",
+      dontSerialize: true,
+    },
+    tagId: {
+      name: "tagId",
+      displayName: "Tag Id",
+      type: "string",
+      role: "value",
+      rules: {
+        required: val => (val != null && val !== '') || "Tag Id is required.",
+      }
+    },
+    tag: {
+      name: "tag",
+      displayName: "Tag",
+      type: "model",
+      get typeDef() { return (domain.types.Tag as ModelType & { name: "Tag" }) },
+      role: "value",
+      dontSerialize: true,
+    },
+    modifiedById: {
+      name: "modifiedById",
+      displayName: "Modified By Id",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
+    createdById: {
+      name: "createdById",
+      displayName: "Created By Id",
+      type: "string",
+      role: "value",
+      dontSerialize: true,
+    },
+    createdBy: {
+      name: "createdBy",
+      displayName: "Created By",
+      type: "model",
+      get typeDef() { return (domain.types.User as ModelType & { name: "User" }) },
+      role: "value",
+      dontSerialize: true,
+    },
+    createdOn: {
+      name: "createdOn",
+      displayName: "Created On",
+      type: "date",
+      dateKind: "datetime",
+      role: "value",
+      dontSerialize: true,
+    },
+    modifiedBy: {
+      name: "modifiedBy",
+      displayName: "Modified By",
+      type: "model",
+      get typeDef() { return (domain.types.User as ModelType & { name: "User" }) },
+      role: "value",
+      dontSerialize: true,
+    },
+    modifiedOn: {
+      name: "modifiedOn",
+      displayName: "Modified On",
+      type: "date",
+      dateKind: "datetime",
+      role: "value",
+      dontSerialize: true,
+    },
+  },
+}
 export const UserInfo = domain.types.UserInfo = {
   name: "UserInfo" as const,
   displayName: "User Info",
@@ -4849,6 +4986,7 @@ interface AppDomain extends Domain {
     PersonPersonType: typeof PersonPersonType
     PersonProgramFundingSource: typeof PersonProgramFundingSource
     PersonRegionAccess: typeof PersonRegionAccess
+    PersonTag: typeof PersonTag
     PersonType: typeof PersonType
     Program: typeof Program
     ProgramActivity: typeof ProgramActivity

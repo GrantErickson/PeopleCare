@@ -11,7 +11,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAlAEEAgCACAACMAgBCCAgAAAIQEEIiAggAJAIAARg=</HashCode>
+      <HashCode>AgAlAMEAgCACAACMAgBCCAgAAAIQEAIiAAgAJAIAABk=</HashCode>
       <FileName>Models\Person.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -55,9 +55,9 @@
       <FileName>Models\Encounter.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="EncounterType" />
       <Property Name="Person" />
       <Property Name="ContactedBy" />
+      <Property Name="EncounterType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.EncounterType">
@@ -84,8 +84,8 @@
       <FileName>Models\Disbursement.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Donation" />
       <Property Name="Person" />
+      <Property Name="Donation" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.Relationship">
@@ -149,14 +149,14 @@
   <Class Name="PeopleCare.Data.Models.Program">
     <Position X="11.25" Y="17" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAgAAAAAAAAAAQAAAAAAAAIAAAAAIAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAoAAAAAAAAAAQAAAIAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Models\Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeopleCare.Data.Models.FundingSource">
     <Position X="8.75" Y="19.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>Models\FundingSource.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -165,8 +165,8 @@
     <AssociationLine Name="Program" Type="PeopleCare.Data.Models.Program" FixedToPoint="true">
       <Path>
         <Point X="8.25" Y="18.188" />
-        <Point X="9.729" Y="18.188" Type="JumpStart" />
-        <Point X="9.896" Y="18.188" Type="JumpEnd" />
+        <Point X="9.792" Y="18.188" Type="JumpStart" />
+        <Point X="9.958" Y="18.188" Type="JumpEnd" />
         <Point X="11.25" Y="18.188" />
       </Path>
     </AssociationLine>
@@ -175,14 +175,14 @@
       <FileName>Models\ProgramFundingSource.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FundingSource" />
       <Property Name="Program" />
+      <Property Name="FundingSource" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.Activity">
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAgAEAAAAAAAAQAAAAAAAABACAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAQAAAIAAAABACAAAAAAAgA=</HashCode>
       <FileName>Models\Activity.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -193,8 +193,8 @@
       <FileName>Models\ProgramActivity.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Activity" />
       <Property Name="Program" />
+      <Property Name="Activity" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.PersonProgramFundingSource">
@@ -236,10 +236,10 @@
       <FileName>Models\Participation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Activity" />
-      <Property Name="FundingSource" />
-      <Property Name="Program" />
       <Property Name="Person" />
+      <Property Name="Activity" />
+      <Property Name="Program" />
+      <Property Name="FundingSource" />
       <Property Name="Form" />
     </ShowAsAssociation>
   </Class>
@@ -250,8 +250,8 @@
       <FileName>Models\Forms\Form.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FormType" />
       <Property Name="Person" />
+      <Property Name="FormType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.Forms.FormType">
@@ -296,8 +296,8 @@
       <FileName>Models\Document.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="DocumentType" />
       <Property Name="Person" />
+      <Property Name="DocumentType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="PeopleCare.Data.Models.DocumentType">

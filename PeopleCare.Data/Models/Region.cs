@@ -18,8 +18,6 @@ public class Region : TenantedBase
 
     public IList<Region> Children { get; set; } = new List<Region>();
 
-    public ICollection<Person> PeopleWithAccess { get; set; } = null!;
-
     /// <summary>
     /// Returns the index of the level of this region in the hierarchy with 0 being the top
     /// </summary>
