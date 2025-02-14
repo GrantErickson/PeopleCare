@@ -99,7 +99,8 @@ namespace PeopleCare.Web.Api
             var _params = new
             {
                 Id = id,
-                Etag = etag ?? await ((await Request.ReadFormAsync()).Files[nameof(etag)]?.OpenReadStream().ReadAllBytesAsync(true) ?? Task.FromResult<byte[]>(null))
+                // This next line throws every time
+                Etag = etag //?? await ((await Request.ReadFormAsync()).Files[nameof(etag)]?.OpenReadStream().ReadAllBytesAsync(true) ?? Task.FromResult<byte[]>(null))
             };
 
             var dataSource = dataSourceFactory.GetDataSource<PeopleCare.Data.Models.User, PeopleCare.Data.Models.User>("Default");

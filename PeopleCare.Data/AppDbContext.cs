@@ -114,10 +114,13 @@ public class AppDbContext
         builder.Entity<Encounter>()
             .HasOne(f => f.Person)
             .WithMany(f => f.Encounters)
-            .HasForeignKey(f=>f.PersonId);
+            .HasForeignKey(f=>new { f.TenantId, f.PersonId });
 
         builder.Entity<Encounter>()
-            .HasOne(f => f.ContactedBy);
+            .HasOne(f => f.ContactedBy)
+            .WithMany()
+            .HasForeignKey(f => new { f.TenantId, f.ContactedById })
+            .OnDelete(DeleteBehavior.NoAction);
 
         //// Many to Many between Person and Region for Users who have access to regions.
         //builder.Entity<Person>()
@@ -219,8 +222,6 @@ public class AppDbContext
 
         builder.Entity<Role>(e =>
         {
-            OnModelCreatingCustom(builder);
-
             e.PrimitiveCollection(e => e.Permissions).ElementType().HasConversion<string>();
 
             // Fix index that doesn't account for tenanted roles
@@ -314,6 +315,7 @@ public class AppDbContext
                 }
             }
         }
+        OnModelCreatingCustom(builder);
     }
 
     class TenantIdValueGenerator : ValueGenerator<string>

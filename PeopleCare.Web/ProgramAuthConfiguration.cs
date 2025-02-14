@@ -28,7 +28,7 @@ public static class ProgramAuthConfiguration
                 c.Password.RequireDigit = false;
                 c.Password.RequireUppercase = false;
                 c.Password.RequireLowercase = false;
-                c.Password.RequiredLength = 15;
+                c.Password.RequiredLength = 8;
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders()
@@ -38,18 +38,18 @@ public static class ProgramAuthConfiguration
 
         builder.Services
             .AddAuthentication()
-            .AddGoogle(options =>
-            {
-                options.ClientId = config["Authentication:Google:ClientId"]!;
-                options.ClientSecret = config["Authentication:Google:ClientSecret"]!;
-                options.ClaimActions.MapJsonKey("pictureUrl", "picture");
-            })
-            .AddMicrosoftAccount(options =>
-            {
-                options.ClientId = config["Authentication:Microsoft:ClientId"]!;
-                options.ClientSecret = config["Authentication:Microsoft:ClientSecret"]!;
-                options.SaveTokens = true;
-            })
+            //.AddGoogle(options =>
+            //{
+            //    options.ClientId = config["Authentication:Google:ClientId"]!;
+            //    options.ClientSecret = config["Authentication:Google:ClientSecret"]!;
+            //    options.ClaimActions.MapJsonKey("pictureUrl", "picture");
+            //})
+            //.AddMicrosoftAccount(options =>
+            //{
+            //    options.ClientId = config["Authentication:Microsoft:ClientId"]!;
+            //    options.ClientSecret = config["Authentication:Microsoft:ClientSecret"]!;
+            //    options.SaveTokens = true;
+            //})
             ;
 
         builder.Services.Configure<SecurityStampValidatorOptions>(o =>
