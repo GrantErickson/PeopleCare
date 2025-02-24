@@ -6,8 +6,9 @@ public class Program: TenantedBase
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    [ManyToMany($"{nameof(FundingSource)}s", FarNavigationProperty = nameof(ProgramFundingSource.FundingSource))]
-    public ICollection<ProgramFundingSource> ProgramFundingSources { get; set; } = [];
+    [Required]
+    public string FundingSourceId { get; set; } = null!;
+    public FundingSource? FundingSource { get; set; }
 
     public ICollection<Activity> Activities { get; set; } = [];
 }

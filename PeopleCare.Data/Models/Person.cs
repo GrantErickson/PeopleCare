@@ -1,9 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using PeopleCare.Data.Models.Forms;
 
 namespace PeopleCare.Data.Models;
-public class Person: TenantedBase
+public class Person : TenantedBase
 {
+    public enum Sex
+    {
+        Male,
+        Female,
+        Intersex,
+        NotAssigned
+    }
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string PersonId { get; set; } = null!;
 
@@ -28,8 +35,9 @@ public class Person: TenantedBase
     public ICollection<Relationship> Relationships { get; set; } = [];
     [ManyToMany($"{nameof(Tag)}s", FarNavigationProperty = nameof(PersonTag.Tag))]
     public ICollection<PersonTag> Tags { get; set; } = [];
-    public ICollection<Form> Forms { get; set; } = [];
     public ICollection<Document> Documents { get; set; } = [];
+
+    public Sex SexAssignedAtBirth { get; set; }
 
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

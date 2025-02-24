@@ -12,7 +12,7 @@ using PeopleCare.Data;
 namespace PeopleCare.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250213162006_Init")]
+    [Migration("20250224155003_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -609,190 +609,6 @@ namespace PeopleCare.Data.Migrations
                     b.ToTable("Ethnicities");
                 });
 
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.Form", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("FormId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FormTypeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("TenantId", "FormId");
-
-                    b.HasAlternateKey("FormId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TenantId", "FormTypeId");
-
-                    b.HasIndex("TenantId", "PersonId");
-
-                    b.ToTable("Forms");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormFieldValue", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("FormFieldValueId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("FormId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FormTypeFieldId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TenantId", "FormFieldValueId");
-
-                    b.HasAlternateKey("FormFieldValueId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TenantId", "FormId");
-
-                    b.HasIndex("TenantId", "FormTypeFieldId");
-
-                    b.ToTable("FormValues");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormType", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("FormTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TenantId", "FormTypeId");
-
-                    b.HasAlternateKey("FormTypeId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.ToTable("FormTypes");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormTypeField", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("FormTypeFieldId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FormTypeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ValidValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TenantId", "FormTypeFieldId");
-
-                    b.HasAlternateKey("FormTypeFieldId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TenantId", "FormTypeId");
-
-                    b.ToTable("FormFields");
-                });
-
             modelBuilder.Entity("PeopleCare.Data.Models.FundingSource", b =>
                 {
                     b.Property<string>("TenantId")
@@ -887,9 +703,6 @@ namespace PeopleCare.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("FormId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("FundingSourceId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -900,11 +713,17 @@ namespace PeopleCare.Data.Migrations
                     b.Property<bool>("IsRegistered")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsStaff")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTimeOffset>("ModifiedOn")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonId")
                         .IsRequired()
@@ -923,8 +742,6 @@ namespace PeopleCare.Data.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.HasIndex("TenantId", "ActivityId");
-
-                    b.HasIndex("TenantId", "FormId");
 
                     b.HasIndex("TenantId", "FundingSourceId");
 
@@ -1005,6 +822,9 @@ namespace PeopleCare.Data.Migrations
                     b.Property<string>("RegionId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SexAssignedAtBirth")
+                        .HasColumnType("int");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
@@ -1089,63 +909,6 @@ namespace PeopleCare.Data.Migrations
                     b.HasIndex("TenantId", "PersonTypeId");
 
                     b.ToTable("PersonPersonTypes");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.PersonProgramFundingSource", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("PersonProgramFundingSourceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateOnly>("DateEnrolled")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FundingSourceId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProgramId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
-                    b.HasKey("TenantId", "PersonProgramFundingSourceId");
-
-                    b.HasAlternateKey("PersonProgramFundingSourceId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TenantId", "FundingSourceId");
-
-                    b.HasIndex("TenantId", "PersonId");
-
-                    b.HasIndex("TenantId", "ProgramId");
-
-                    b.ToTable("PersonProgramFundingSources");
                 });
 
             modelBuilder.Entity("PeopleCare.Data.Models.PersonRegionAccess", b =>
@@ -1304,6 +1067,7 @@ namespace PeopleCare.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FundingSourceId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ModifiedById")
@@ -1372,51 +1136,6 @@ namespace PeopleCare.Data.Migrations
                     b.HasIndex("TenantId", "ProgramId");
 
                     b.ToTable("ProgramActivities");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.ProgramFundingSource", b =>
-                {
-                    b.Property<string>("TenantId")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("ProgramFundingSourceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("FundingSourceId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("ModifiedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("ProgramId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("TenantId", "ProgramFundingSourceId");
-
-                    b.HasAlternateKey("ProgramFundingSourceId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TenantId", "FundingSourceId");
-
-                    b.HasIndex("TenantId", "ProgramId");
-
-                    b.ToTable("ProgramFundingSources");
                 });
 
             modelBuilder.Entity("PeopleCare.Data.Models.Region", b =>
@@ -2157,7 +1876,7 @@ namespace PeopleCare.Data.Migrations
                     b.HasOne("PeopleCare.Data.Models.Person", "ContactedBy")
                         .WithMany()
                         .HasForeignKey("TenantId", "ContactedById")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PeopleCare.Data.Models.EncounterType", "EncounterType")
@@ -2169,7 +1888,7 @@ namespace PeopleCare.Data.Migrations
                     b.HasOne("PeopleCare.Data.Models.Person", "Person")
                         .WithMany("Encounters")
                         .HasForeignKey("TenantId", "PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PeopleCare.Data.Models.Region", "Region")
@@ -2237,146 +1956,6 @@ namespace PeopleCare.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.Form", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Forms.FormType", "FormType")
-                        .WithMany("Forms")
-                        .HasForeignKey("TenantId", "FormTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Person", "Person")
-                        .WithMany("Forms")
-                        .HasForeignKey("TenantId", "PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("FormType");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormFieldValue", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Forms.Form", "Form")
-                        .WithMany("FormValues")
-                        .HasForeignKey("TenantId", "FormId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Forms.FormTypeField", "FormTypeField")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "FormTypeFieldId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("Form");
-
-                    b.Navigation("FormTypeField");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormType", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormTypeField", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Forms.FormType", "FormType")
-                        .WithMany("Fields")
-                        .HasForeignKey("TenantId", "FormTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("FormType");
 
                     b.Navigation("ModifiedBy");
 
@@ -2457,11 +2036,6 @@ namespace PeopleCare.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PeopleCare.Data.Models.Forms.Form", "Form")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "FormId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("PeopleCare.Data.Models.FundingSource", "FundingSource")
                         .WithMany()
                         .HasForeignKey("TenantId", "FundingSourceId")
@@ -2483,8 +2057,6 @@ namespace PeopleCare.Data.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Form");
 
                     b.Navigation("FundingSource");
 
@@ -2605,55 +2177,6 @@ namespace PeopleCare.Data.Migrations
                     b.Navigation("Person");
 
                     b.Navigation("PersonType");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.PersonProgramFundingSource", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.FundingSource", "FundingSource")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "FundingSourceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Program", "Program")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("FundingSource");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Program");
 
                     b.Navigation("Tenant");
                 });
@@ -2783,12 +2306,15 @@ namespace PeopleCare.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PeopleCare.Data.Models.FundingSource", null)
+                    b.HasOne("PeopleCare.Data.Models.FundingSource", "FundingSource")
                         .WithMany("Programs")
                         .HasForeignKey("TenantId", "FundingSourceId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("FundingSource");
 
                     b.Navigation("ModifiedBy");
 
@@ -2828,47 +2354,6 @@ namespace PeopleCare.Data.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Program");
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.ProgramFundingSource", b =>
-                {
-                    b.HasOne("PeopleCare.Data.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PeopleCare.Data.Models.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.FundingSource", "FundingSource")
-                        .WithMany()
-                        .HasForeignKey("TenantId", "FundingSourceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PeopleCare.Data.Models.Program", "Program")
-                        .WithMany("ProgramFundingSources")
-                        .HasForeignKey("TenantId", "ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("FundingSource");
 
                     b.Navigation("ModifiedBy");
 
@@ -3174,18 +2659,6 @@ namespace PeopleCare.Data.Migrations
                     b.Navigation("Disbursements");
                 });
 
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.Form", b =>
-                {
-                    b.Navigation("FormValues");
-                });
-
-            modelBuilder.Entity("PeopleCare.Data.Models.Forms.FormType", b =>
-                {
-                    b.Navigation("Fields");
-
-                    b.Navigation("Forms");
-                });
-
             modelBuilder.Entity("PeopleCare.Data.Models.FundingSource", b =>
                 {
                     b.Navigation("Programs");
@@ -3200,8 +2673,6 @@ namespace PeopleCare.Data.Migrations
                     b.Navigation("Donations");
 
                     b.Navigation("Encounters");
-
-                    b.Navigation("Forms");
 
                     b.Navigation("PersonTypes");
 
@@ -3218,8 +2689,6 @@ namespace PeopleCare.Data.Migrations
             modelBuilder.Entity("PeopleCare.Data.Models.Program", b =>
                 {
                     b.Navigation("Activities");
-
-                    b.Navigation("ProgramFundingSources");
                 });
 
             modelBuilder.Entity("PeopleCare.Data.Models.Region", b =>

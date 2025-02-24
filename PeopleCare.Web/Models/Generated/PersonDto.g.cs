@@ -15,6 +15,7 @@ namespace PeopleCare.Web.Models
         private string _PersonId;
         private string _RegionId;
         private string _UserId;
+        private PeopleCare.Data.Models.Person.Sex? _SexAssignedAtBirth;
         private string _FirstName;
         private string _LastName;
         private string _Email;
@@ -46,6 +47,11 @@ namespace PeopleCare.Web.Models
         {
             get => _UserId;
             set { _UserId = value; Changed(nameof(UserId)); }
+        }
+        public PeopleCare.Data.Models.Person.Sex? SexAssignedAtBirth
+        {
+            get => _SexAssignedAtBirth;
+            set { _SexAssignedAtBirth = value; Changed(nameof(SexAssignedAtBirth)); }
         }
         public string FirstName
         {
@@ -140,6 +146,7 @@ namespace PeopleCare.Web.Models
             if (ShouldMapTo(nameof(PersonId))) entity.PersonId = PersonId;
             if (ShouldMapTo(nameof(RegionId))) entity.RegionId = RegionId;
             if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
+            if (ShouldMapTo(nameof(SexAssignedAtBirth))) entity.SexAssignedAtBirth = (SexAssignedAtBirth ?? entity.SexAssignedAtBirth);
             if (ShouldMapTo(nameof(FirstName))) entity.FirstName = FirstName;
             if (ShouldMapTo(nameof(LastName))) entity.LastName = LastName;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
@@ -173,6 +180,7 @@ namespace PeopleCare.Web.Models
             if (OnUpdate(entity, context)) return entity;
             if (ShouldMapTo(nameof(PersonId))) entity.PersonId = PersonId;
             if (ShouldMapTo(nameof(UserId))) entity.UserId = UserId;
+            if (ShouldMapTo(nameof(SexAssignedAtBirth))) entity.SexAssignedAtBirth = (SexAssignedAtBirth ?? entity.SexAssignedAtBirth);
             if (ShouldMapTo(nameof(FirstName))) entity.FirstName = FirstName;
             if (ShouldMapTo(nameof(LastName))) entity.LastName = LastName;
             if (ShouldMapTo(nameof(Email))) entity.Email = Email;
@@ -201,6 +209,7 @@ namespace PeopleCare.Web.Models
         public string PersonId { get; set; }
         public string RegionId { get; set; }
         public string UserId { get; set; }
+        public PeopleCare.Data.Models.Person.Sex? SexAssignedAtBirth { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -230,7 +239,6 @@ namespace PeopleCare.Web.Models
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DisbursementResponse> Disbursements { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.RelationshipResponse> Relationships { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.PersonTagResponse> Tags { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.FormResponse> Forms { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.DocumentResponse> Documents { get; set; }
         public PeopleCare.Web.Models.EthnicityResponse Ethnicity { get; set; }
         public PeopleCare.Web.Models.GenderResponse Gender { get; set; }
@@ -249,6 +257,7 @@ namespace PeopleCare.Web.Models
             this.PersonId = obj.PersonId;
             this.RegionId = obj.RegionId;
             this.UserId = obj.UserId;
+            this.SexAssignedAtBirth = obj.SexAssignedAtBirth;
             this.FirstName = obj.FirstName;
             this.LastName = obj.LastName;
             this.Email = obj.Email;
@@ -357,18 +366,6 @@ namespace PeopleCare.Web.Models
             else if (propValTags == null && tree?[nameof(this.Tags)] != null)
             {
                 this.Tags = new PersonTagResponse[0];
-            }
-
-            var propValForms = obj.Forms;
-            if (propValForms != null && (tree == null || tree[nameof(this.Forms)] != null))
-            {
-                this.Forms = propValForms
-                    .OrderBy(f => f.FormId)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.Forms.Form, FormResponse>(context, tree?[nameof(this.Forms)])).ToList();
-            }
-            else if (propValForms == null && tree?[nameof(this.Forms)] != null)
-            {
-                this.Forms = new FormResponse[0];
             }
 
             var propValDocuments = obj.Documents;

@@ -2,11 +2,9 @@ using IntelliTect.Coalesce.AuditLogging;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
-using PeopleCare.Data.Models.Forms;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 
@@ -90,15 +88,8 @@ public class AppDbContext
 
     public DbSet<Program> Programs => Set<Program>();
     public DbSet<FundingSource> FundingSources => Set<FundingSource>();
-    public DbSet<ProgramFundingSource> ProgramFundingSources => Set<ProgramFundingSource>();
     public DbSet<Activity> Activities => Set<Activity>();
     public DbSet<ProgramActivity> ProgramActivities => Set<ProgramActivity>();
-    public DbSet<PersonProgramFundingSource> PersonProgramFundingSources => Set<PersonProgramFundingSource>();
-
-    public DbSet<Form> Forms => Set<Form>();
-    public DbSet<FormType> FormTypes => Set<FormType>();
-    public DbSet<FormTypeField> FormFields => Set<FormTypeField>();
-    public DbSet<FormFieldValue> FormValues => Set<FormFieldValue>();
 
     public DbSet<Document> Documents => Set<Document>();
     public DbSet<DocumentType> DocumentTypes => Set<DocumentType>();
@@ -116,13 +107,13 @@ public class AppDbContext
           .HasOne(e => e.Person)
           .WithMany(p => p.Encounters)
           .HasForeignKey(e => new { e.TenantId, e.PersonId })
-          .OnDelete(DeleteBehavior.Restrict);
+          .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Encounter>()
             .HasOne(e => e.ContactedBy)
             .WithMany()
             .HasForeignKey(e => new { e.TenantId, e.ContactedById })
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         // Define the relationship between Person and Region
         builder.Entity<Person>()
@@ -136,7 +127,7 @@ public class AppDbContext
             .HasOne(r => r.ParentRegion)
             .WithMany(r => r.Children)
             .HasForeignKey(r => new { r.TenantId, r.ParentRegionId })
-            .OnDelete(DeleteBehavior.Restrict); // Adjust theses if needed
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

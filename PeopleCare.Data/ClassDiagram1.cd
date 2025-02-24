@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PeopleCare.Data.Models.Activity" Collapsed="true">
+    <Position X="26.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAQAAAIAAAABACAAAAAAAgA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Disbursement">
+    <Position X="32.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAECAAAgAAgAAAEAgAAAAAAAAAAAAABAAQggAAAAAA=</HashCode>
+      <FileName>Models\Disbursement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Document" Collapsed="true">
+    <Position X="29.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAgABAAAAAgEAAAAAAAAAAAAAAAACAAAAAAAAgA=</HashCode>
+      <FileName>Models\Document.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="DocumentType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.DocumentType" Collapsed="true">
+    <Position X="29.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DocumentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Donation" Collapsed="true">
+    <Position X="32.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIECAEAgAAgAAAEAAAAAAAAAAAAAAABAAAggAAAAAA=</HashCode>
+      <FileName>Models\Donation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Encounter" Collapsed="true">
+    <Position X="26.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAkgAAAgAAAAAAEAAIIAAACCAAAEAABAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Encounter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="EncounterType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.EncounterType">
+    <Position X="20.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EncounterType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Ethnicity">
+    <Position X="26.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ethnicity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.FundingSource">
+    <Position X="20.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Models\FundingSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Gender">
+    <Position X="32.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Participation">
+    <Position X="26.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAQAAAAAAAEAEAAEAAAAAAAAAAAAICAEAAGEAAgA=</HashCode>
+      <FileName>Models\Participation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Program" />
+      <Property Name="Activity" />
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Person">
+    <Position X="29.25" Y="9" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="PeopleCare.Data.Models.Person.Sex" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Person.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAlAEEAgCACAACMAgBCCAgAAAIQEEIiAggALAIAARg=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Region" />
+      <Property Name="User" />
+      <Property Name="Gender" />
+      <Property Name="Ethnicity" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonRegionAccess" Collapsed="true">
+    <Position X="29.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAgAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PersonRegionAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.PersonTag" Collapsed="true">
+    <Position X="32.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAgAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\PersonTag.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="Tag" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Program">
+    <Position X="23.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAEAAAQAAAAAAAAIAAAAAKAAAAA=</HashCode>
+      <FileName>Models\Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FundingSource" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.ProgramActivity" Collapsed="true">
+    <Position X="23.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAEAAAAAAAAAAAAAAAAAIAAAAAEAAABA=</HashCode>
+      <FileName>Models\ProgramActivity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Program" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.ProgramRequirment">
+    <Position X="23.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProgramRequirment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Program" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Region" Collapsed="true">
+    <Position X="32.25" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAACAAAAAAAAAAAAkAAQAQAAAAAABAAAAAAAAIAA=</HashCode>
+      <FileName>Models\Region.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Relationship" Collapsed="true">
+    <Position X="26.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAQAQBAAAAAAEEIAAAAAgAAARAEAAEAAAAEMIAAA=</HashCode>
+      <FileName>Models\Relationship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+      <Property Name="RelationshipType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.RelationshipType" Collapsed="true">
+    <Position X="23.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAQAAAAAEAABAAAAAAAAAAI=</HashCode>
+      <FileName>Models\RelationshipType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OppositeRelationshipType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.Tag" Collapsed="true">
+    <Position X="35.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Tag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.User" Collapsed="true">
+    <Position X="26.25" Y="17.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="PeopleCare.Data.Models.User.DefaultSource" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\User.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="PeopleCare.Data.Models.User.UserBehaviors" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\User.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACAAEAABKAAIuAIAAAAQEQBQAAAACgoAQQAlAAAAQA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleCare.Data.Models.UserRole" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="16.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="PeopleCare.Data.Models.UserRole.DefaultSource" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\UserRole.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="PeopleCare.Data.Models.UserRole.Behaviors" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\UserRole.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAEAAA=</HashCode>
+      <FileName>Models\UserRole.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

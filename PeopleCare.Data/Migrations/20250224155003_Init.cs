@@ -328,42 +328,6 @@ namespace PeopleCare.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FormTypes",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    FormTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FormTypes", x => new { x.TenantId, x.FormTypeId });
-                    table.UniqueConstraint("AK_FormTypes_FormTypeId", x => x.FormTypeId);
-                    table.ForeignKey(
-                        name: "FK_FormTypes_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormTypes_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormTypes_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FundingSources",
                 columns: table => new
                 {
@@ -726,52 +690,6 @@ namespace PeopleCare.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FormFields",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    FormTypeFieldId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FormTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    ValidValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FormFields", x => new { x.TenantId, x.FormTypeFieldId });
-                    table.UniqueConstraint("AK_FormFields_FormTypeFieldId", x => x.FormTypeFieldId);
-                    table.ForeignKey(
-                        name: "FK_FormFields_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormFields_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormFields_FormTypes_TenantId_FormTypeId",
-                        columns: x => new { x.TenantId, x.FormTypeId },
-                        principalTable: "FormTypes",
-                        principalColumns: new[] { "TenantId", "FormTypeId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormFields_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Programs",
                 columns: table => new
                 {
@@ -779,7 +697,7 @@ namespace PeopleCare.Data.Migrations
                     ProgramId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -823,6 +741,7 @@ namespace PeopleCare.Data.Migrations
                     PersonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RegionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    SexAssignedAtBirth = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -953,55 +872,6 @@ namespace PeopleCare.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Activities_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProgramFundingSources",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    ProgramFundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProgramId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProgramFundingSources", x => new { x.TenantId, x.ProgramFundingSourceId });
-                    table.UniqueConstraint("AK_ProgramFundingSources_ProgramFundingSourceId", x => x.ProgramFundingSourceId);
-                    table.ForeignKey(
-                        name: "FK_ProgramFundingSources_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProgramFundingSources_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProgramFundingSources_FundingSources_TenantId_FundingSourceId",
-                        columns: x => new { x.TenantId, x.FundingSourceId },
-                        principalTable: "FundingSources",
-                        principalColumns: new[] { "TenantId", "FundingSourceId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProgramFundingSources_Programs_TenantId_ProgramId",
-                        columns: x => new { x.TenantId, x.ProgramId },
-                        principalTable: "Programs",
-                        principalColumns: new[] { "TenantId", "ProgramId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProgramFundingSources_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "TenantId",
@@ -1158,14 +1028,13 @@ namespace PeopleCare.Data.Migrations
                         name: "FK_Encounters_People_TenantId_ContactedById",
                         columns: x => new { x.TenantId, x.ContactedById },
                         principalTable: "People",
-                        principalColumns: new[] { "TenantId", "PersonId" },
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumns: new[] { "TenantId", "PersonId" });
                     table.ForeignKey(
                         name: "FK_Encounters_People_TenantId_PersonId",
                         columns: x => new { x.TenantId, x.PersonId },
                         principalTable: "People",
                         principalColumns: new[] { "TenantId", "PersonId" },
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Encounters_Regions_TenantId_RegionId",
                         columns: x => new { x.TenantId, x.RegionId },
@@ -1174,56 +1043,6 @@ namespace PeopleCare.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Encounters_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Forms",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    FormId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PersonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FormTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Forms", x => new { x.TenantId, x.FormId });
-                    table.UniqueConstraint("AK_Forms_FormId", x => x.FormId);
-                    table.ForeignKey(
-                        name: "FK_Forms_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Forms_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Forms_FormTypes_TenantId_FormTypeId",
-                        columns: x => new { x.TenantId, x.FormTypeId },
-                        principalTable: "FormTypes",
-                        principalColumns: new[] { "TenantId", "FormTypeId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Forms_People_TenantId_PersonId",
-                        columns: x => new { x.TenantId, x.PersonId },
-                        principalTable: "People",
-                        principalColumns: new[] { "TenantId", "PersonId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Forms_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "TenantId",
@@ -1273,64 +1092,6 @@ namespace PeopleCare.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PersonPersonTypes_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PersonProgramFundingSources",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    PersonProgramFundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PersonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProgramId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
-                    DateEnrolled = table.Column<DateOnly>(type: "date", nullable: false),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonProgramFundingSources", x => new { x.TenantId, x.PersonProgramFundingSourceId });
-                    table.UniqueConstraint("AK_PersonProgramFundingSources_PersonProgramFundingSourceId", x => x.PersonProgramFundingSourceId);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_FundingSources_TenantId_FundingSourceId",
-                        columns: x => new { x.TenantId, x.FundingSourceId },
-                        principalTable: "FundingSources",
-                        principalColumns: new[] { "TenantId", "FundingSourceId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_People_TenantId_PersonId",
-                        columns: x => new { x.TenantId, x.PersonId },
-                        principalTable: "People",
-                        principalColumns: new[] { "TenantId", "PersonId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_Programs_TenantId_ProgramId",
-                        columns: x => new { x.TenantId, x.ProgramId },
-                        principalTable: "Programs",
-                        principalColumns: new[] { "TenantId", "ProgramId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PersonProgramFundingSources_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "TenantId",
@@ -1529,6 +1290,73 @@ namespace PeopleCare.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Participation",
+                columns: table => new
+                {
+                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
+                    ParticipationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PersonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ActivityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProgramId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsRegistered = table.Column<bool>(type: "bit", nullable: false),
+                    IsStaff = table.Column<bool>(type: "bit", nullable: false),
+                    IsAttended = table.Column<bool>(type: "bit", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Participation", x => new { x.TenantId, x.ParticipationId });
+                    table.UniqueConstraint("AK_Participation_ParticipationId", x => x.ParticipationId);
+                    table.ForeignKey(
+                        name: "FK_Participation_Activities_TenantId_ActivityId",
+                        columns: x => new { x.TenantId, x.ActivityId },
+                        principalTable: "Activities",
+                        principalColumns: new[] { "TenantId", "ActivityId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_FundingSources_TenantId_FundingSourceId",
+                        columns: x => new { x.TenantId, x.FundingSourceId },
+                        principalTable: "FundingSources",
+                        principalColumns: new[] { "TenantId", "FundingSourceId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_People_TenantId_PersonId",
+                        columns: x => new { x.TenantId, x.PersonId },
+                        principalTable: "People",
+                        principalColumns: new[] { "TenantId", "PersonId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_Programs_TenantId_ProgramId",
+                        columns: x => new { x.TenantId, x.ProgramId },
+                        principalTable: "Programs",
+                        principalColumns: new[] { "TenantId", "ProgramId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Participation_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "TenantId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProgramActivities",
                 columns: table => new
                 {
@@ -1631,128 +1459,6 @@ namespace PeopleCare.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Disbursements_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FormValues",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    FormFieldValueId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FormId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FormTypeFieldId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FormValues", x => new { x.TenantId, x.FormFieldValueId });
-                    table.UniqueConstraint("AK_FormValues_FormFieldValueId", x => x.FormFieldValueId);
-                    table.ForeignKey(
-                        name: "FK_FormValues_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormValues_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormValues_FormFields_TenantId_FormTypeFieldId",
-                        columns: x => new { x.TenantId, x.FormTypeFieldId },
-                        principalTable: "FormFields",
-                        principalColumns: new[] { "TenantId", "FormTypeFieldId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormValues_Forms_TenantId_FormId",
-                        columns: x => new { x.TenantId, x.FormId },
-                        principalTable: "Forms",
-                        principalColumns: new[] { "TenantId", "FormId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FormValues_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "TenantId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Participation",
-                columns: table => new
-                {
-                    TenantId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
-                    ParticipationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PersonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ActivityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProgramId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FundingSourceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsRegistered = table.Column<bool>(type: "bit", nullable: false),
-                    IsAttended = table.Column<bool>(type: "bit", nullable: false),
-                    FormId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Participation", x => new { x.TenantId, x.ParticipationId });
-                    table.UniqueConstraint("AK_Participation_ParticipationId", x => x.ParticipationId);
-                    table.ForeignKey(
-                        name: "FK_Participation_Activities_TenantId_ActivityId",
-                        columns: x => new { x.TenantId, x.ActivityId },
-                        principalTable: "Activities",
-                        principalColumns: new[] { "TenantId", "ActivityId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_AspNetUsers_ModifiedById",
-                        column: x => x.ModifiedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_Forms_TenantId_FormId",
-                        columns: x => new { x.TenantId, x.FormId },
-                        principalTable: "Forms",
-                        principalColumns: new[] { "TenantId", "FormId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_FundingSources_TenantId_FundingSourceId",
-                        columns: x => new { x.TenantId, x.FundingSourceId },
-                        principalTable: "FundingSources",
-                        principalColumns: new[] { "TenantId", "FundingSourceId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_People_TenantId_PersonId",
-                        columns: x => new { x.TenantId, x.PersonId },
-                        principalTable: "People",
-                        principalColumns: new[] { "TenantId", "PersonId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_Programs_TenantId_ProgramId",
-                        columns: x => new { x.TenantId, x.ProgramId },
-                        principalTable: "Programs",
-                        principalColumns: new[] { "TenantId", "ProgramId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Participation_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "TenantId",
@@ -1969,71 +1675,6 @@ namespace PeopleCare.Data.Migrations
                 column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FormFields_CreatedById",
-                table: "FormFields",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormFields_ModifiedById",
-                table: "FormFields",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormFields_TenantId_FormTypeId",
-                table: "FormFields",
-                columns: new[] { "TenantId", "FormTypeId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Forms_CreatedById",
-                table: "Forms",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Forms_ModifiedById",
-                table: "Forms",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Forms_TenantId_FormTypeId",
-                table: "Forms",
-                columns: new[] { "TenantId", "FormTypeId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Forms_TenantId_PersonId",
-                table: "Forms",
-                columns: new[] { "TenantId", "PersonId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormTypes_CreatedById",
-                table: "FormTypes",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormTypes_ModifiedById",
-                table: "FormTypes",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormValues_CreatedById",
-                table: "FormValues",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormValues_ModifiedById",
-                table: "FormValues",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormValues_TenantId_FormId",
-                table: "FormValues",
-                columns: new[] { "TenantId", "FormId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormValues_TenantId_FormTypeFieldId",
-                table: "FormValues",
-                columns: new[] { "TenantId", "FormTypeFieldId" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FundingSources_CreatedById",
                 table: "FundingSources",
                 column: "CreatedById");
@@ -2067,11 +1708,6 @@ namespace PeopleCare.Data.Migrations
                 name: "IX_Participation_TenantId_ActivityId",
                 table: "Participation",
                 columns: new[] { "TenantId", "ActivityId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Participation_TenantId_FormId",
-                table: "Participation",
-                columns: new[] { "TenantId", "FormId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participation_TenantId_FundingSourceId",
@@ -2154,31 +1790,6 @@ namespace PeopleCare.Data.Migrations
                 columns: new[] { "TenantId", "PersonTypeId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonProgramFundingSources_CreatedById",
-                table: "PersonProgramFundingSources",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonProgramFundingSources_ModifiedById",
-                table: "PersonProgramFundingSources",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonProgramFundingSources_TenantId_FundingSourceId",
-                table: "PersonProgramFundingSources",
-                columns: new[] { "TenantId", "FundingSourceId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonProgramFundingSources_TenantId_PersonId",
-                table: "PersonProgramFundingSources",
-                columns: new[] { "TenantId", "PersonId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonProgramFundingSources_TenantId_ProgramId",
-                table: "PersonProgramFundingSources",
-                columns: new[] { "TenantId", "ProgramId" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PersonRegion_RegionsAvailableTenantId_RegionsAvailableRegionId",
                 table: "PersonRegion",
                 columns: new[] { "RegionsAvailableTenantId", "RegionsAvailableRegionId" });
@@ -2251,26 +1862,6 @@ namespace PeopleCare.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProgramActivities_TenantId_ProgramId",
                 table: "ProgramActivities",
-                columns: new[] { "TenantId", "ProgramId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProgramFundingSources_CreatedById",
-                table: "ProgramFundingSources",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProgramFundingSources_ModifiedById",
-                table: "ProgramFundingSources",
-                column: "ModifiedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProgramFundingSources_TenantId_FundingSourceId",
-                table: "ProgramFundingSources",
-                columns: new[] { "TenantId", "FundingSourceId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProgramFundingSources_TenantId_ProgramId",
-                table: "ProgramFundingSources",
                 columns: new[] { "TenantId", "ProgramId" });
 
             migrationBuilder.CreateIndex(
@@ -2425,16 +2016,10 @@ namespace PeopleCare.Data.Migrations
                 name: "Encounters");
 
             migrationBuilder.DropTable(
-                name: "FormValues");
-
-            migrationBuilder.DropTable(
                 name: "Participation");
 
             migrationBuilder.DropTable(
                 name: "PersonPersonTypes");
-
-            migrationBuilder.DropTable(
-                name: "PersonProgramFundingSources");
 
             migrationBuilder.DropTable(
                 name: "PersonRegion");
@@ -2447,9 +2032,6 @@ namespace PeopleCare.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProgramActivities");
-
-            migrationBuilder.DropTable(
-                name: "ProgramFundingSources");
 
             migrationBuilder.DropTable(
                 name: "Relationships");
@@ -2476,19 +2058,10 @@ namespace PeopleCare.Data.Migrations
                 name: "EncounterType");
 
             migrationBuilder.DropTable(
-                name: "FormFields");
-
-            migrationBuilder.DropTable(
-                name: "Forms");
-
-            migrationBuilder.DropTable(
                 name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "RelationshipTypes");
-
-            migrationBuilder.DropTable(
-                name: "FormTypes");
 
             migrationBuilder.DropTable(
                 name: "People");

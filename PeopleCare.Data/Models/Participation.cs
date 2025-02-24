@@ -1,6 +1,4 @@
-﻿using PeopleCare.Data.Models.Forms;
-
-namespace PeopleCare.Data.Models;
+﻿namespace PeopleCare.Data.Models;
 public class Participation : TenantedBase
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,9 +16,8 @@ public class Participation : TenantedBase
     public FundingSource? FundingSource { get; set; }
 
     public bool IsRegistered { get; set; }
+    public bool IsStaff { get; set; }
     public bool IsAttended { get; set; }
 
-    public string? FormId { get; set; }
-    public Form? Form { get; set; }
-
+    public string? Note { get; set; }
 }

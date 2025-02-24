@@ -15,6 +15,7 @@ namespace PeopleCare.Web.Models
         private string _ProgramId;
         private string _Name;
         private string _Description;
+        private string _FundingSourceId;
 
         public string ProgramId
         {
@@ -31,6 +32,11 @@ namespace PeopleCare.Web.Models
             get => _Description;
             set { _Description = value; Changed(nameof(Description)); }
         }
+        public string FundingSourceId
+        {
+            get => _FundingSourceId;
+            set { _FundingSourceId = value; Changed(nameof(FundingSourceId)); }
+        }
 
         /// <summary>
         /// Map from the current DTO instance to the domain object.
@@ -44,6 +50,7 @@ namespace PeopleCare.Web.Models
             if (ShouldMapTo(nameof(ProgramId))) entity.ProgramId = ProgramId;
             if (ShouldMapTo(nameof(Name))) entity.Name = Name;
             if (ShouldMapTo(nameof(Description))) entity.Description = Description;
+            if (ShouldMapTo(nameof(FundingSourceId))) entity.FundingSourceId = FundingSourceId;
         }
 
         /// <summary>
@@ -64,11 +71,12 @@ namespace PeopleCare.Web.Models
         public string ProgramId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string FundingSourceId { get; set; }
         public string ModifiedById { get; set; }
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
         public System.DateTimeOffset? CreatedOn { get; set; }
-        public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ProgramFundingSourceResponse> ProgramFundingSources { get; set; }
+        public PeopleCare.Web.Models.FundingSourceResponse FundingSource { get; set; }
         public System.Collections.Generic.ICollection<PeopleCare.Web.Models.ActivityResponse> Activities { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
@@ -84,21 +92,13 @@ namespace PeopleCare.Web.Models
             this.ProgramId = obj.ProgramId;
             this.Name = obj.Name;
             this.Description = obj.Description;
+            this.FundingSourceId = obj.FundingSourceId;
             this.ModifiedById = obj.ModifiedById;
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
             this.CreatedOn = obj.CreatedOn;
-            var propValProgramFundingSources = obj.ProgramFundingSources;
-            if (propValProgramFundingSources != null && (tree == null || tree[nameof(this.ProgramFundingSources)] != null))
-            {
-                this.ProgramFundingSources = propValProgramFundingSources
-                    .OrderBy(f => f.ProgramFundingSourceId)
-                    .Select(f => f.MapToDto<PeopleCare.Data.Models.ProgramFundingSource, ProgramFundingSourceResponse>(context, tree?[nameof(this.ProgramFundingSources)])).ToList();
-            }
-            else if (propValProgramFundingSources == null && tree?[nameof(this.ProgramFundingSources)] != null)
-            {
-                this.ProgramFundingSources = new ProgramFundingSourceResponse[0];
-            }
+            if (tree == null || tree[nameof(this.FundingSource)] != null)
+                this.FundingSource = obj.FundingSource.MapToDto<PeopleCare.Data.Models.FundingSource, FundingSourceResponse>(context, tree?[nameof(this.FundingSource)]);
 
             var propValActivities = obj.Activities;
             if (propValActivities != null && (tree == null || tree[nameof(this.Activities)] != null))

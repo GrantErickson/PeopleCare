@@ -18,8 +18,9 @@ namespace PeopleCare.Web.Models
         private string _ProgramId;
         private string _FundingSourceId;
         private bool? _IsRegistered;
+        private bool? _IsStaff;
         private bool? _IsAttended;
-        private string _FormId;
+        private string _Note;
 
         public string ParticipationId
         {
@@ -51,15 +52,20 @@ namespace PeopleCare.Web.Models
             get => _IsRegistered;
             set { _IsRegistered = value; Changed(nameof(IsRegistered)); }
         }
+        public bool? IsStaff
+        {
+            get => _IsStaff;
+            set { _IsStaff = value; Changed(nameof(IsStaff)); }
+        }
         public bool? IsAttended
         {
             get => _IsAttended;
             set { _IsAttended = value; Changed(nameof(IsAttended)); }
         }
-        public string FormId
+        public string Note
         {
-            get => _FormId;
-            set { _FormId = value; Changed(nameof(FormId)); }
+            get => _Note;
+            set { _Note = value; Changed(nameof(Note)); }
         }
 
         /// <summary>
@@ -77,8 +83,9 @@ namespace PeopleCare.Web.Models
             if (ShouldMapTo(nameof(ProgramId))) entity.ProgramId = ProgramId;
             if (ShouldMapTo(nameof(FundingSourceId))) entity.FundingSourceId = FundingSourceId;
             if (ShouldMapTo(nameof(IsRegistered))) entity.IsRegistered = (IsRegistered ?? entity.IsRegistered);
+            if (ShouldMapTo(nameof(IsStaff))) entity.IsStaff = (IsStaff ?? entity.IsStaff);
             if (ShouldMapTo(nameof(IsAttended))) entity.IsAttended = (IsAttended ?? entity.IsAttended);
-            if (ShouldMapTo(nameof(FormId))) entity.FormId = FormId;
+            if (ShouldMapTo(nameof(Note))) entity.Note = Note;
         }
 
         /// <summary>
@@ -102,8 +109,9 @@ namespace PeopleCare.Web.Models
         public string ProgramId { get; set; }
         public string FundingSourceId { get; set; }
         public bool? IsRegistered { get; set; }
+        public bool? IsStaff { get; set; }
         public bool? IsAttended { get; set; }
-        public string FormId { get; set; }
+        public string Note { get; set; }
         public string ModifiedById { get; set; }
         public System.DateTimeOffset? ModifiedOn { get; set; }
         public string CreatedById { get; set; }
@@ -112,7 +120,6 @@ namespace PeopleCare.Web.Models
         public PeopleCare.Web.Models.ActivityResponse Activity { get; set; }
         public PeopleCare.Web.Models.ProgramResponse Program { get; set; }
         public PeopleCare.Web.Models.FundingSourceResponse FundingSource { get; set; }
-        public PeopleCare.Web.Models.FormResponse Form { get; set; }
         public PeopleCare.Web.Models.UserResponse ModifiedBy { get; set; }
         public PeopleCare.Web.Models.UserResponse CreatedBy { get; set; }
 
@@ -130,8 +137,9 @@ namespace PeopleCare.Web.Models
             this.ProgramId = obj.ProgramId;
             this.FundingSourceId = obj.FundingSourceId;
             this.IsRegistered = obj.IsRegistered;
+            this.IsStaff = obj.IsStaff;
             this.IsAttended = obj.IsAttended;
-            this.FormId = obj.FormId;
+            this.Note = obj.Note;
             this.ModifiedById = obj.ModifiedById;
             this.ModifiedOn = obj.ModifiedOn;
             this.CreatedById = obj.CreatedById;
@@ -147,9 +155,6 @@ namespace PeopleCare.Web.Models
 
             if (tree == null || tree[nameof(this.FundingSource)] != null)
                 this.FundingSource = obj.FundingSource.MapToDto<PeopleCare.Data.Models.FundingSource, FundingSourceResponse>(context, tree?[nameof(this.FundingSource)]);
-
-            if (tree == null || tree[nameof(this.Form)] != null)
-                this.Form = obj.Form.MapToDto<PeopleCare.Data.Models.Forms.Form, FormResponse>(context, tree?[nameof(this.Form)]);
 
             if (tree == null || tree[nameof(this.ModifiedBy)] != null)
                 this.ModifiedBy = obj.ModifiedBy.MapToDto<PeopleCare.Data.Models.User, UserResponse>(context, tree?[nameof(this.ModifiedBy)]);

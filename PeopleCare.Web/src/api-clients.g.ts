@@ -48,26 +48,6 @@ export class EthnicityApiClient extends ModelApiClient<$models.Ethnicity> {
 }
 
 
-export class FormApiClient extends ModelApiClient<$models.Form> {
-  constructor() { super($metadata.Form) }
-}
-
-
-export class FormFieldValueApiClient extends ModelApiClient<$models.FormFieldValue> {
-  constructor() { super($metadata.FormFieldValue) }
-}
-
-
-export class FormTypeApiClient extends ModelApiClient<$models.FormType> {
-  constructor() { super($metadata.FormType) }
-}
-
-
-export class FormTypeFieldApiClient extends ModelApiClient<$models.FormTypeField> {
-  constructor() { super($metadata.FormTypeField) }
-}
-
-
 export class FundingSourceApiClient extends ModelApiClient<$models.FundingSource> {
   constructor() { super($metadata.FundingSource) }
 }
@@ -85,11 +65,6 @@ export class PersonApiClient extends ModelApiClient<$models.Person> {
 
 export class PersonPersonTypeApiClient extends ModelApiClient<$models.PersonPersonType> {
   constructor() { super($metadata.PersonPersonType) }
-}
-
-
-export class PersonProgramFundingSourceApiClient extends ModelApiClient<$models.PersonProgramFundingSource> {
-  constructor() { super($metadata.PersonProgramFundingSource) }
 }
 
 
@@ -115,11 +90,6 @@ export class ProgramApiClient extends ModelApiClient<$models.Program> {
 
 export class ProgramActivityApiClient extends ModelApiClient<$models.ProgramActivity> {
   constructor() { super($metadata.ProgramActivity) }
-}
-
-
-export class ProgramFundingSourceApiClient extends ModelApiClient<$models.ProgramFundingSource> {
-  constructor() { super($metadata.ProgramFundingSource) }
 }
 
 

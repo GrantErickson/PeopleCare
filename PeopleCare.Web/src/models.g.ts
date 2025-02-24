@@ -9,14 +9,6 @@ export enum AuditEntryState {
 }
 
 
-export enum FormFieldType {
-  Number = 1,
-  ShortText = 2,
-  LongText = 3,
-  Selection = 4,
-}
-
-
 export enum Permission {
   
   /** Modify application configuration and other administrative functions excluding user/role management. */
@@ -28,10 +20,11 @@ export enum Permission {
 }
 
 
-export enum ProgramState {
-  Enrolled = 0,
-  Completed = 1,
-  Withdrawn = 2,
+export enum Sex {
+  Male = 0,
+  Female = 1,
+  Intersex = 2,
+  NotAssigned = 3,
 }
 
 
@@ -365,146 +358,6 @@ export class Ethnicity {
 }
 
 
-export interface Form extends Model<typeof metadata.Form> {
-  formId: string | null
-  personId: string | null
-  person: Person | null
-  formTypeId: string | null
-  formType: FormType | null
-  date: Date | null
-  formValues: FormFieldValue[] | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class Form {
-  
-  /** Mutates the input object and its descendents into a valid Form implementation. */
-  static convert(data?: Partial<Form>): Form {
-    return convertToModel(data || {}, metadata.Form) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid Form implementation. */
-  static map(data?: Partial<Form>): Form {
-    return mapToModel(data || {}, metadata.Form) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.Form; }
-  
-  /** Instantiate a new Form, optionally basing it on the given data. */
-  constructor(data?: Partial<Form> | {[k: string]: any}) {
-    Object.assign(this, Form.map(data || {}));
-  }
-}
-
-
-export interface FormFieldValue extends Model<typeof metadata.FormFieldValue> {
-  formFieldValueId: string | null
-  formId: string | null
-  form: Form | null
-  formTypeFieldId: string | null
-  formTypeField: FormTypeField | null
-  value: string | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class FormFieldValue {
-  
-  /** Mutates the input object and its descendents into a valid FormFieldValue implementation. */
-  static convert(data?: Partial<FormFieldValue>): FormFieldValue {
-    return convertToModel(data || {}, metadata.FormFieldValue) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid FormFieldValue implementation. */
-  static map(data?: Partial<FormFieldValue>): FormFieldValue {
-    return mapToModel(data || {}, metadata.FormFieldValue) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormFieldValue; }
-  
-  /** Instantiate a new FormFieldValue, optionally basing it on the given data. */
-  constructor(data?: Partial<FormFieldValue> | {[k: string]: any}) {
-    Object.assign(this, FormFieldValue.map(data || {}));
-  }
-}
-
-
-export interface FormType extends Model<typeof metadata.FormType> {
-  formTypeId: string | null
-  name: string | null
-  forms: Form[] | null
-  fields: FormTypeField[] | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class FormType {
-  
-  /** Mutates the input object and its descendents into a valid FormType implementation. */
-  static convert(data?: Partial<FormType>): FormType {
-    return convertToModel(data || {}, metadata.FormType) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid FormType implementation. */
-  static map(data?: Partial<FormType>): FormType {
-    return mapToModel(data || {}, metadata.FormType) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormType; }
-  
-  /** Instantiate a new FormType, optionally basing it on the given data. */
-  constructor(data?: Partial<FormType> | {[k: string]: any}) {
-    Object.assign(this, FormType.map(data || {}));
-  }
-}
-
-
-export interface FormTypeField extends Model<typeof metadata.FormTypeField> {
-  formTypeFieldId: string | null
-  formTypeId: string | null
-  formType: FormType | null
-  name: string | null
-  description: string | null
-  type: FormFieldType | null
-  validValues: string | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class FormTypeField {
-  
-  /** Mutates the input object and its descendents into a valid FormTypeField implementation. */
-  static convert(data?: Partial<FormTypeField>): FormTypeField {
-    return convertToModel(data || {}, metadata.FormTypeField) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid FormTypeField implementation. */
-  static map(data?: Partial<FormTypeField>): FormTypeField {
-    return mapToModel(data || {}, metadata.FormTypeField) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.FormTypeField; }
-  
-  /** Instantiate a new FormTypeField, optionally basing it on the given data. */
-  constructor(data?: Partial<FormTypeField> | {[k: string]: any}) {
-    Object.assign(this, FormTypeField.map(data || {}));
-  }
-}
-
-
 export interface FundingSource extends Model<typeof metadata.FundingSource> {
   fundingSourceId: string | null
   name: string | null
@@ -581,8 +434,8 @@ export interface Person extends Model<typeof metadata.Person> {
   disbursements: Disbursement[] | null
   relationships: Relationship[] | null
   tags: PersonTag[] | null
-  forms: Form[] | null
   documents: Document[] | null
+  sexAssignedAtBirth: Sex | null
   firstName: string | null
   lastName: string | null
   email: string | null
@@ -660,44 +513,6 @@ export class PersonPersonType {
   /** Instantiate a new PersonPersonType, optionally basing it on the given data. */
   constructor(data?: Partial<PersonPersonType> | {[k: string]: any}) {
     Object.assign(this, PersonPersonType.map(data || {}));
-  }
-}
-
-
-export interface PersonProgramFundingSource extends Model<typeof metadata.PersonProgramFundingSource> {
-  personProgramFundingSourceId: string | null
-  personId: string | null
-  person: Person | null
-  programId: string | null
-  program: Program | null
-  fundingSourceId: string | null
-  fundingSource: FundingSource | null
-  state: ProgramState | null
-  dateEnrolled: Date | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class PersonProgramFundingSource {
-  
-  /** Mutates the input object and its descendents into a valid PersonProgramFundingSource implementation. */
-  static convert(data?: Partial<PersonProgramFundingSource>): PersonProgramFundingSource {
-    return convertToModel(data || {}, metadata.PersonProgramFundingSource) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid PersonProgramFundingSource implementation. */
-  static map(data?: Partial<PersonProgramFundingSource>): PersonProgramFundingSource {
-    return mapToModel(data || {}, metadata.PersonProgramFundingSource) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.PersonProgramFundingSource; }
-  
-  /** Instantiate a new PersonProgramFundingSource, optionally basing it on the given data. */
-  constructor(data?: Partial<PersonProgramFundingSource> | {[k: string]: any}) {
-    Object.assign(this, PersonProgramFundingSource.map(data || {}));
   }
 }
 
@@ -809,7 +624,8 @@ export interface Program extends Model<typeof metadata.Program> {
   programId: string | null
   name: string | null
   description: string | null
-  programFundingSources: ProgramFundingSource[] | null
+  fundingSourceId: string | null
+  fundingSource: FundingSource | null
   activities: Activity[] | null
   modifiedBy: User | null
   modifiedById: string | null
@@ -869,40 +685,6 @@ export class ProgramActivity {
   /** Instantiate a new ProgramActivity, optionally basing it on the given data. */
   constructor(data?: Partial<ProgramActivity> | {[k: string]: any}) {
     Object.assign(this, ProgramActivity.map(data || {}));
-  }
-}
-
-
-export interface ProgramFundingSource extends Model<typeof metadata.ProgramFundingSource> {
-  programFundingSourceId: string | null
-  programId: string | null
-  program: Program | null
-  fundingSourceId: string | null
-  fundingSource: FundingSource | null
-  modifiedBy: User | null
-  modifiedById: string | null
-  modifiedOn: Date | null
-  createdBy: User | null
-  createdById: string | null
-  createdOn: Date | null
-}
-export class ProgramFundingSource {
-  
-  /** Mutates the input object and its descendents into a valid ProgramFundingSource implementation. */
-  static convert(data?: Partial<ProgramFundingSource>): ProgramFundingSource {
-    return convertToModel(data || {}, metadata.ProgramFundingSource) 
-  }
-  
-  /** Maps the input object and its descendents to a new, valid ProgramFundingSource implementation. */
-  static map(data?: Partial<ProgramFundingSource>): ProgramFundingSource {
-    return mapToModel(data || {}, metadata.ProgramFundingSource) 
-  }
-  
-  static [Symbol.hasInstance](x: any) { return x?.$metadata === metadata.ProgramFundingSource; }
-  
-  /** Instantiate a new ProgramFundingSource, optionally basing it on the given data. */
-  constructor(data?: Partial<ProgramFundingSource> | {[k: string]: any}) {
-    Object.assign(this, ProgramFundingSource.map(data || {}));
   }
 }
 
@@ -1238,9 +1020,9 @@ export interface Participation extends Model<typeof metadata.Participation> {
   fundingSourceId: string | null
   fundingSource: FundingSource | null
   isRegistered: boolean | null
+  isStaff: boolean | null
   isAttended: boolean | null
-  formId: string | null
-  form: Form | null
+  note: string | null
   modifiedBy: User | null
   modifiedById: string | null
   modifiedOn: Date | null
@@ -1303,9 +1085,8 @@ export class UserInfo {
 declare module "coalesce-vue/lib/model" {
   interface EnumTypeLookup {
     AuditEntryState: AuditEntryState
-    FormFieldType: FormFieldType
     Permission: Permission
-    ProgramState: ProgramState
+    Sex: Sex
   }
   interface ModelTypeLookup {
     Activity: Activity
@@ -1318,22 +1099,16 @@ declare module "coalesce-vue/lib/model" {
     Encounter: Encounter
     EncounterType: EncounterType
     Ethnicity: Ethnicity
-    Form: Form
-    FormFieldValue: FormFieldValue
-    FormType: FormType
-    FormTypeField: FormTypeField
     FundingSource: FundingSource
     Gender: Gender
     Participation: Participation
     Person: Person
     PersonPersonType: PersonPersonType
-    PersonProgramFundingSource: PersonProgramFundingSource
     PersonRegionAccess: PersonRegionAccess
     PersonTag: PersonTag
     PersonType: PersonType
     Program: Program
     ProgramActivity: ProgramActivity
-    ProgramFundingSource: ProgramFundingSource
     Region: Region
     Relationship: Relationship
     RelationshipType: RelationshipType
